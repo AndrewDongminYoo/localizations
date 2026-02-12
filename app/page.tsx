@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/navbar"
 import { HeroSection } from "@/components/hero-section"
 import { PillarsSection } from "@/components/pillars-section"
+import { WorkflowTimeline } from "@/components/workflow-timeline"
 import { CaseStudiesSection } from "@/components/case-studies-section"
 import { SkillsSection } from "@/components/skills-section"
 import { PricingSection } from "@/components/pricing-section"
@@ -17,6 +18,10 @@ export default function Page() {
           <hr className="border-border" />
         </div>
         <PillarsSection />
+        <div className="mx-auto max-w-6xl px-6">
+          <hr className="border-border" />
+        </div>
+        <WorkflowTimeline />
         <div className="mx-auto max-w-6xl px-6">
           <hr className="border-border" />
         </div>
