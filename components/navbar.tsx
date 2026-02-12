@@ -6,8 +6,12 @@ import { Sun, Moon, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const navLinks = [
+  { label: "Metrics", href: "#metrics" },
   { label: "Services", href: "#services" },
+  { label: "Workflow", href: "#workflow" },
   { label: "Case Studies", href: "#case-studies" },
+  { label: "Skills", href: "#skills" },
+  { label: "Track Record", href: "#track-record" },
   { label: "Pricing", href: "#pricing" },
   { label: "Contact", href: "#contact" },
 ]
