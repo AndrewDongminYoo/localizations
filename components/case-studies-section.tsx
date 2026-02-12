@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
-import { X, Check, AlertTriangle, ArrowRight } from "lucide-react"
+import { X, Check, AlertTriangle, ArrowRight, Ruler } from "lucide-react"
 
 interface CaseStudy {
   id: string
@@ -21,52 +21,70 @@ interface CaseStudy {
 
 const caseStudies: CaseStudy[] = [
   {
-    id: "literal",
-    label: "Literal Trap",
-    title: "Literal Translation Trap",
-    context: "Task template in planning app",
+    id: "precision",
+    label: "Technical Precision",
+    title: "Technical Precision",
+    context: "iOS string formatting",
+    english: "%@ at %@ \u00B7 %@",
+    codeBlock: {
+      source: '"s": "%@ at %@ \u00B7 %@",\n"t": "%@\uC5D0\uC11C %@ - %@"  // Changed separator breaks consistency',
+      target: '"s": "%@ at %@ \u00B7 %@",\n"t": "%@ \uC2DC %@ \u00B7 %@"  // Preserved exact format markers',
+      label: "Localizable.strings",
+    },
+    whyItMatters:
+      "Every %@ placeholder preserved in exact order and separators kept consistent. One misplaced specifier would crash the app at runtime.",
+    impact: "Maintained visual consistency across all iOS views. Zero format-related crashes.",
+  },
+  {
+    id: "cultural",
+    label: "Cultural Adaptation",
+    title: "Cultural Adaptation",
+    context: "Task template for routine planning",
     english: "Water plants",
     before: {
       text: "\uC218\uC0DD \uC2DD\uBB3C",
-      explanation: "Aquatic plants \u2014 wrong semantic category",
+      explanation: "Aquatic plants \u2014 wrong meaning entirely!",
     },
     after: {
       text: "\uC2DD\uBB3C \uBB3C\uC8FC\uAE30",
       explanation: "Watering plants \u2014 correct user action",
     },
     whyItMatters:
-      "Recognized verb vs. noun ambiguity in English and understood the user intent within a task-management context.",
-    impact: "Prevented misclassification in task templates across 200+ planning workflows",
+      "Recognized verb vs. noun ambiguity. Neurodivergent users (Tiimo's audience) need clear action-oriented language.",
+    impact: "Prevented task misclassification across all planning workflows",
   },
   {
-    id: "context",
+    id: "disambiguation",
     label: "Disambiguation",
-    title: "Context Disambiguation",
-    context: "Mixed usage across pricing and features",
+    title: "Disambiguation",
+    context: '"Plan" used in two different contexts',
     english: "Plan",
-    problem: 'Same English word, two distinct meanings within one app',
+    problem: "Same English word, different meanings \u2014 Pricing page: subscription tiers vs. App features: scheduling/planning",
     solution: [
-      { label: "Pricing page", translation: "\uC694\uAE08\uC81C (subscription tier)" },
-      { label: "Planning features", translation: "\uACC4\uD68D (schedule / plan)" },
+      { label: "Subscription context", translation: "\uC694\uAE08\uC81C" },
+      { label: "Planning context", translation: "\uACC4\uD68D" },
     ],
     whyItMatters:
       "A single word resolved to two different Korean terms depending on where it appeared in the UI, eliminating user confusion.",
-    impact: "Eliminated support ticket category for \u201Cwrong plan displayed\u201D entirely",
+    impact: "Reduced support inquiries about pricing confusion",
   },
   {
-    id: "format",
-    label: "Format Safety",
-    title: "Format Preservation",
-    context: "iOS string placeholder format",
-    english: "%@ at %@ \u00B7 %@",
-    codeBlock: {
-      label: "Localizable.strings",
-      source: '"event_detail" = "%@ at %@ \u00B7 %@";',
-      target: '"event_detail" = "%@ \uC2DC %@ \u00B7 %@";',
+    id: "conciseness",
+    label: "Conciseness",
+    title: "Conciseness",
+    context: "Button text with space constraints",
+    english: "Access all features",
+    before: {
+      text: "\uBAA8\uB4E0 \uAE30\uB2A5\uC5D0 \uB300\uD55C \uC561\uC138\uC2A4",
+      explanation: "Too long for button \u2014 overflows UI container",
+    },
+    after: {
+      text: "\uBAA8\uB4E0 \uAE30\uB2A5 \uC774\uC6A9\uD558\uAE30",
+      explanation: "Optimized for UI \u2014 natural Korean expression",
     },
     whyItMatters:
-      "Every %@ placeholder preserved in exact order. One misplaced or removed specifier would crash the app at runtime.",
-    impact: "Zero crashes from format string errors over 2+ years of continuous delivery",
+      "Korean text is typically 1.3\u20131.5x longer than English. Must test actual button rendering to ensure no overflow.",
+    impact: "Eliminated all button text overflow issues across the app",
   },
 ]
 
@@ -103,10 +121,46 @@ function ResultBadge({ variant, label }: { variant: "error" | "success"; label: 
   )
 }
 
-function LiteralTrapContent({ study }: { study: CaseStudy }) {
+function PrecisionContent({ study }: { study: CaseStudy }) {
   return (
     <div className="flex flex-col gap-6">
-      {/* English source */}
+      <div className="grid gap-4 md:grid-cols-2">
+        <CodeBlock label="Before">
+          <div className="flex flex-col gap-1">
+            <span className="text-xs text-destructive/80">{"// Changed separator breaks consistency"}</span>
+            {study.codeBlock?.source.split("\n").map((line, i) => (
+              <span key={i} className={i === 1 ? "text-destructive" : "text-foreground"}>
+                {line}
+              </span>
+            ))}
+          </div>
+        </CodeBlock>
+        <CodeBlock label="After">
+          <div className="flex flex-col gap-1">
+            <span className="text-xs text-primary/80">{"// Preserved exact format markers"}</span>
+            {study.codeBlock?.target.split("\n").map((line, i) => (
+              <span key={i} className={i === 1 ? "text-primary" : "text-foreground"}>
+                {line}
+              </span>
+            ))}
+          </div>
+        </CodeBlock>
+      </div>
+      <div className="grid gap-4 md:grid-cols-3">
+        {["3/3 format specifiers preserved", "Separator character kept consistent", "Validated against NSString format rules"].map((item, i) => (
+          <div key={i} className="flex items-center gap-3 rounded-lg border border-border bg-card p-4">
+            <Check className="h-4 w-4 shrink-0 text-primary" />
+            <span className="text-sm text-foreground">{item}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function CulturalContent({ study }: { study: CaseStudy }) {
+  return (
+    <div className="flex flex-col gap-6">
       <CodeBlock label="en.json">
         <div className="flex flex-col gap-1">
           <span className="text-muted-foreground">{"// Task template string"}</span>
@@ -117,12 +171,11 @@ function LiteralTrapContent({ study }: { study: CaseStudy }) {
         </div>
       </CodeBlock>
 
-      {/* Before / After */}
       <div className="grid gap-4 md:grid-cols-2">
         <div className="rounded-lg border border-destructive/20 bg-destructive/5 p-5">
           <div className="mb-3 flex items-center justify-between">
-            <ResultBadge variant="error" label="Before" />
-            <span className="text-xs text-muted-foreground">Literal machine output</span>
+            <ResultBadge variant="error" label="Literal Translation" />
+            <span className="text-xs text-muted-foreground">Machine output</span>
           </div>
           <p className="font-mono text-lg font-semibold text-foreground">
             {study.before?.text}
@@ -134,8 +187,8 @@ function LiteralTrapContent({ study }: { study: CaseStudy }) {
 
         <div className="rounded-lg border border-primary/20 bg-primary/5 p-5">
           <div className="mb-3 flex items-center justify-between">
-            <ResultBadge variant="success" label="After" />
-            <span className="text-xs text-muted-foreground">Context-aware</span>
+            <ResultBadge variant="success" label="Context-Aware" />
+            <span className="text-xs text-muted-foreground">Human localization</span>
           </div>
           <p className="font-mono text-lg font-semibold text-foreground">
             {study.after?.text}
@@ -152,7 +205,6 @@ function LiteralTrapContent({ study }: { study: CaseStudy }) {
 function DisambiguationContent({ study }: { study: CaseStudy }) {
   return (
     <div className="flex flex-col gap-6">
-      {/* Problem statement */}
       <CodeBlock label="source string">
         <div className="flex flex-col gap-1">
           <span className="text-muted-foreground">{"// Used in multiple UI locations"}</span>
@@ -171,7 +223,6 @@ function DisambiguationContent({ study }: { study: CaseStudy }) {
         </p>
       </div>
 
-      {/* Solution mapping */}
       <div className="flex flex-col gap-3">
         <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
           Context-dependent resolution
@@ -195,44 +246,56 @@ function DisambiguationContent({ study }: { study: CaseStudy }) {
   )
 }
 
-function FormatContent({ study }: { study: CaseStudy }) {
+function ConcisenessContent({ study }: { study: CaseStudy }) {
   return (
     <div className="flex flex-col gap-6">
-      <CodeBlock label={study.codeBlock?.label}>
-        <div className="flex flex-col gap-3">
-          <div>
-            <span className="text-xs text-muted-foreground">{"// Source (English)"}</span>
-            <div className="mt-1">
-              <span className="text-foreground">{study.codeBlock?.source}</span>
-            </div>
-          </div>
-          <div className="border-t border-border pt-3">
-            <span className="text-xs text-muted-foreground">{"// Target (Korean)"}</span>
-            <div className="mt-1">
-              <span className="text-primary">{study.codeBlock?.target}</span>
-            </div>
-          </div>
-        </div>
-      </CodeBlock>
+      <div className="flex items-center gap-3 rounded-lg border border-chart-4/30 bg-chart-4/5 px-4 py-3">
+        <Ruler className="h-4 w-4 shrink-0 text-chart-4" />
+        <p className="text-sm text-foreground">
+          <span className="font-semibold">Challenge:</span>{" "}
+          {"Korean text is typically 1.3\u20131.5x longer than English. Button text must fit the UI."}
+        </p>
+      </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
-        <div className="flex items-center gap-3 rounded-lg border border-border bg-card p-4">
-          <Check className="h-4 w-4 shrink-0 text-primary" />
-          <span className="text-sm text-foreground">
-            3/3 format specifiers preserved
-          </span>
+      <div className="grid gap-4 md:grid-cols-2">
+        <div className="rounded-lg border border-destructive/20 bg-destructive/5 p-5">
+          <div className="mb-3">
+            <ResultBadge variant="error" label="Before" />
+          </div>
+          <div className="rounded-md border border-destructive/20 bg-background px-4 py-3">
+            <p className="font-mono text-base font-semibold text-foreground">
+              {study.before?.text}
+            </p>
+          </div>
+          <p className="mt-3 text-sm text-muted-foreground">
+            {study.before?.explanation}
+          </p>
+          <div className="mt-3 flex items-center gap-2">
+            <div className="h-2 flex-1 overflow-hidden rounded-full bg-muted">
+              <div className="h-full w-full rounded-full bg-destructive/60" />
+            </div>
+            <span className="text-xs font-medium text-destructive">{"Overflow"}</span>
+          </div>
         </div>
-        <div className="flex items-center gap-3 rounded-lg border border-border bg-card p-4">
-          <Check className="h-4 w-4 shrink-0 text-primary" />
-          <span className="text-sm text-foreground">
-            Correct placeholder order maintained
-          </span>
-        </div>
-        <div className="flex items-center gap-3 rounded-lg border border-border bg-card p-4">
-          <Check className="h-4 w-4 shrink-0 text-primary" />
-          <span className="text-sm text-foreground">
-            Validated against NSString format rules
-          </span>
+
+        <div className="rounded-lg border border-primary/20 bg-primary/5 p-5">
+          <div className="mb-3">
+            <ResultBadge variant="success" label="After" />
+          </div>
+          <div className="rounded-md border border-primary/20 bg-background px-4 py-3">
+            <p className="font-mono text-base font-semibold text-foreground">
+              {study.after?.text}
+            </p>
+          </div>
+          <p className="mt-3 text-sm text-muted-foreground">
+            {study.after?.explanation}
+          </p>
+          <div className="mt-3 flex items-center gap-2">
+            <div className="h-2 flex-1 overflow-hidden rounded-full bg-muted">
+              <div className="h-full w-3/4 rounded-full bg-primary/60" />
+            </div>
+            <span className="text-xs font-medium text-primary">{"Fits"}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -240,14 +303,14 @@ function FormatContent({ study }: { study: CaseStudy }) {
 }
 
 export function CaseStudiesSection() {
-  const [activeTab, setActiveTab] = useState("literal")
+  const [activeTab, setActiveTab] = useState("precision")
 
   return (
     <section id="case-studies" className="py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-medium uppercase tracking-widest text-primary">
-            Real examples
+            Before / After examples
           </p>
           <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl">
             Translation vs. Localization
@@ -259,12 +322,12 @@ export function CaseStudiesSection() {
 
         <div className="mt-14">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="mx-auto flex w-full max-w-lg rounded-xl bg-muted p-1">
+            <TabsList className="mx-auto grid w-full max-w-2xl grid-cols-4 rounded-xl bg-muted p-1">
               {caseStudies.map((study) => (
                 <TabsTrigger
                   key={study.id}
                   value={study.id}
-                  className="flex-1 rounded-lg text-xs data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm sm:text-sm"
+                  className="rounded-lg text-xs data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm sm:text-sm"
                 >
                   {study.label}
                 </TabsTrigger>
@@ -274,7 +337,6 @@ export function CaseStudiesSection() {
             {caseStudies.map((study) => (
               <TabsContent key={study.id} value={study.id} className="mt-8">
                 <div className="rounded-xl border border-border bg-card">
-                  {/* Header */}
                   <div className="border-b border-border p-6 md:p-8">
                     <div className="flex flex-col gap-2">
                       <div className="flex flex-wrap items-center gap-3">
@@ -294,14 +356,13 @@ export function CaseStudiesSection() {
                     </div>
                   </div>
 
-                  {/* Content */}
                   <div className="p-6 md:p-8">
-                    {study.id === "literal" && <LiteralTrapContent study={study} />}
-                    {study.id === "context" && <DisambiguationContent study={study} />}
-                    {study.id === "format" && <FormatContent study={study} />}
+                    {study.id === "precision" && <PrecisionContent study={study} />}
+                    {study.id === "cultural" && <CulturalContent study={study} />}
+                    {study.id === "disambiguation" && <DisambiguationContent study={study} />}
+                    {study.id === "conciseness" && <ConcisenessContent study={study} />}
                   </div>
 
-                  {/* Footer */}
                   <div className="border-t border-border p-6 md:p-8">
                     <div className="grid gap-4 md:grid-cols-2">
                       <div>

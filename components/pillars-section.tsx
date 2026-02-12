@@ -1,6 +1,6 @@
 "use client"
 
-import { Code2, Brain, Smartphone, GitBranch } from "lucide-react"
+import { Code2, Brain, Smartphone, GitBranch, Check } from "lucide-react"
 
 const pillars = [
   {
@@ -8,6 +8,12 @@ const pillars = [
     title: "Technical Understanding",
     description:
       "I read your codebase, not just your strings. Understanding format specifiers, pluralization rules, and platform-specific constraints means zero localization-induced crashes.",
+    checklist: [
+      "Platform-specific placeholder management (iOS: %@, Android: %1$s)",
+      "ICU MessageFormat handling",
+      "API integration (Lokalise, Localazy, Localizely)",
+      "Version control with meaningful commits",
+    ],
     tags: ["String Interpolation", "Plural Rules", "Format Specifiers"],
   },
   {
@@ -15,13 +21,25 @@ const pillars = [
     title: "Context-Aware Localization",
     description:
       "Korean honorifics, text length expansion, and cultural nuance handled with precision. I consider the UI context, not just the dictionary definition.",
+    checklist: [
+      "Investigated UI context before translating",
+      'Disambiguated dual-meaning words ("Plan" example)',
+      "Natural Korean expression vs. literal translation",
+      "Tracked product changes (Plan tab \u2192 Today tab)",
+    ],
     tags: ["Honorifics", "Cultural Nuance", "Length Constraints"],
   },
   {
     icon: <Smartphone className="h-5 w-5" />,
     title: "UI/UX Testing",
     description:
-      "Every translation is verified in-context on real devices. Text truncation, layout overflow, and right-to-left edge cases are caught before your users see them.",
+      "Every translation is verified in-context on real devices. Text truncation, layout overflow, and edge cases are caught before your users see them.",
+    checklist: [
+      "Tested every string in actual app (not just platform)",
+      "Verified layout on real iOS devices",
+      "Multi-context string validation",
+      "Length optimization for Korean text expansion",
+    ],
     tags: ["Device Testing", "Layout QA", "Screenshot Review"],
   },
   {
@@ -29,6 +47,12 @@ const pillars = [
     title: "Developer Workflow",
     description:
       "I integrate directly into your CI/CD pipeline. Pull requests, branch-based workflows, and automation-first delivery mean no manual file juggling.",
+    checklist: [
+      "Git-based workflow with structured commits",
+      "Project-specific glossaries and context docs",
+      "Automated format validation",
+      "Translation platform API scripting",
+    ],
     tags: ["CI/CD", "Git Workflow", "API Integration"],
   },
 ]
@@ -53,7 +77,7 @@ export function PillarsSection() {
           {pillars.map((pillar) => (
             <div
               key={pillar.title}
-              className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/30 md:p-8"
+              className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/30 hover:shadow-lg md:p-8"
             >
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                 {pillar.icon}
@@ -64,7 +88,17 @@ export function PillarsSection() {
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                 {pillar.description}
               </p>
-              <div className="mt-4 flex flex-wrap gap-2">
+
+              <ul className="mt-4 flex flex-col gap-2">
+                {pillar.checklist.map((item) => (
+                  <li key={item} className="flex items-start gap-2.5">
+                    <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
+                    <span className="text-sm leading-relaxed text-foreground/80">{item}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-5 flex flex-wrap gap-2">
                 {pillar.tags.map((tag) => (
                   <span
                     key={tag}
