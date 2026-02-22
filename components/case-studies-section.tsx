@@ -127,9 +127,9 @@ function PrecisionContent({ study }: { study: CaseStudy }) {
       <div className="grid gap-4 md:grid-cols-2">
         <CodeBlock label="Before">
           <div className="flex flex-col gap-1">
-            <span className="text-xs text-destructive/80">{"// Changed separator breaks consistency"}</span>
+            <span className="text-xs text-amber-500 dark:text-amber-400">{"// Changed separator breaks consistency"}</span>
             {study.codeBlock?.source.split("\n").map((line, i) => (
-              <span key={i} className={i === 1 ? "text-destructive" : "text-foreground"}>
+              <span key={i} className={i === 1 ? "text-amber-600 dark:text-amber-400" : "text-foreground"}>
                 {line}
               </span>
             ))}
@@ -137,9 +137,9 @@ function PrecisionContent({ study }: { study: CaseStudy }) {
         </CodeBlock>
         <CodeBlock label="After">
           <div className="flex flex-col gap-1">
-            <span className="text-xs text-primary/80">{"// Preserved exact format markers"}</span>
+            <span className="text-xs text-emerald-500 dark:text-emerald-400">{"// Preserved exact format markers"}</span>
             {study.codeBlock?.target.split("\n").map((line, i) => (
-              <span key={i} className={i === 1 ? "text-primary" : "text-foreground"}>
+              <span key={i} className={i === 1 ? "text-emerald-600 dark:text-emerald-400" : "text-foreground"}>
                 {line}
               </span>
             ))}

@@ -8,7 +8,7 @@ const geistSans = Geist({ subsets: ['latin'], variable: '--font-geist-sans' })
 const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' })
 
 export const metadata: Metadata = {
-  title: 'Korean App Localization Specialist | Technical Localization Portfolio',
+  title: 'Andrew, Yu | Korean App Localization Specialist',
   description: 'Professional Korean app localization with developer-grade precision. iOS, Android, Web coverage with API-driven workflow automation.',
 }
 

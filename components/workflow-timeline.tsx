@@ -77,7 +77,7 @@ const steps = [
 function ProgressLine({ active, orientation }: { active: boolean; orientation: "horizontal" | "vertical" }) {
   if (orientation === "horizontal") {
     return (
-      <div className="relative mx-1 hidden h-0.5 flex-1 overflow-hidden rounded-full bg-border lg:block">
+      <div className="relative ml-1.5 hidden h-0.5 flex-1 overflow-hidden rounded-full bg-border lg:block" style={{ marginRight: "-0.75rem" }}>
         <div
           className="absolute inset-y-0 left-0 rounded-full bg-primary transition-all duration-700 ease-out"
           style={{ width: active ? "100%" : "0%" }}
@@ -242,42 +242,38 @@ export function WorkflowTimeline() {
 
         {/* Desktop horizontal timeline */}
         <div className="mt-14 hidden lg:block">
-          {/* Progress bar at top */}
-          <div className="mb-6 flex items-center px-2">
+          <div className="grid grid-cols-5 gap-3">
             {steps.map((step, index) => (
-              <div key={step.id} className="flex flex-1 items-center">
-                {/* Node circle */}
-                <div
-                  className={`relative flex h-3 w-3 shrink-0 items-center justify-center rounded-full transition-all duration-500 ${
-                    index < activeStep
-                      ? "bg-primary shadow-[0_0_8px_rgba(59,130,246,0.5)]"
-                      : "border-2 border-border bg-card"
-                  }`}
-                >
-                  {index < activeStep && (
-                    <div className="absolute h-1.5 w-1.5 rounded-full bg-primary-foreground" />
-                  )}
+              <div key={step.id} className="flex flex-col">
+                {/* Progress node + line per card column */}
+                <div className="mb-4 flex items-center">
+                  <div className="flex flex-1 items-center">
+                    <div
+                      className={`relative flex h-3 w-3 shrink-0 items-center justify-center rounded-full transition-all duration-500 ${
+                        index < activeStep
+                          ? "bg-primary shadow-[0_0_8px_rgba(59,130,246,0.5)]"
+                          : "border-2 border-border bg-card"
+                      }`}
+                    >
+                      {index < activeStep && (
+                        <div className="absolute h-1.5 w-1.5 rounded-full bg-primary-foreground" />
+                      )}
+                    </div>
+                    {index < steps.length - 1 && (
+                      <ProgressLine active={index + 1 < activeStep} orientation="horizontal" />
+                    )}
+                  </div>
                 </div>
 
-                {/* Connecting line (not after last) */}
-                {index < steps.length - 1 && (
-                  <ProgressLine active={index + 1 < activeStep} orientation="horizontal" />
-                )}
+                {/* Card */}
+                <StepCard
+                  step={step}
+                  index={index}
+                  isActive={index < activeStep}
+                  isExpanded={expandedStep === index}
+                  onToggle={() => handleToggle(index)}
+                />
               </div>
-            ))}
-          </div>
-
-          {/* Cards row */}
-          <div className="flex gap-3">
-            {steps.map((step, index) => (
-              <StepCard
-                key={step.id}
-                step={step}
-                index={index}
-                isActive={index < activeStep}
-                isExpanded={expandedStep === index}
-                onToggle={() => handleToggle(index)}
-              />
             ))}
           </div>
         </div>

@@ -1,39 +1,6 @@
-"use client"
-
-import { AnimatedCounter } from "@/components/animated-counter"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Shield, Smartphone, Workflow } from "lucide-react"
-
-const stats = [
-  {
-    icon: <Workflow className="h-4 w-4" />,
-    value: 2,
-    suffix: "+",
-    label: "Years Continuous Collaboration",
-  },
-  {
-    icon: <Shield className="h-4 w-4" />,
-    value: 0,
-    suffix: "",
-    label: "Format-Related Crashes",
-    prefix: "",
-    displayOverride: "Zero",
-  },
-  {
-    icon: <Smartphone className="h-4 w-4" />,
-    value: 3,
-    suffix: "",
-    label: "iOS, Android, Web Coverage",
-    displayOverride: "3 Platforms",
-  },
-  {
-    icon: <ArrowRight className="h-4 w-4" />,
-    value: 100,
-    suffix: "%",
-    label: "API-Driven Workflow Automation",
-  },
-]
+import { ArrowRight } from "lucide-react"
 
 export function HeroSection() {
   return (
@@ -52,12 +19,16 @@ export function HeroSection() {
           </Badge>
 
           <h1 className="text-balance text-4xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl">
-            Korean Localization,{" "}
-            <span className="text-primary">Developer-Grade</span>{" "}
-            Precision
+            {"Andrew, Yu"}
           </h1>
 
-          <p className="mx-auto mt-6 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground md:text-lg">
+          <p className="mx-auto mt-4 text-pretty text-lg text-muted-foreground md:text-xl">
+            Korean Localization,{" "}
+            <span className="font-semibold text-primary">Developer-Grade</span>{" "}
+            Precision
+          </p>
+
+          <p className="mx-auto mt-4 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground">
             I bridge the gap between your dev team and the Korean market. Not just translation{" "}
             {"— technical localization that ships without breaking your build."}
           </p>
@@ -73,30 +44,6 @@ export function HeroSection() {
               <a href="#pricing">View Pricing</a>
             </Button>
           </div>
-        </div>
-
-        {/* Stats grid */}
-        <div className="mx-auto mt-16 grid max-w-4xl grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
-          {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="group rounded-xl border border-border bg-card p-5 text-center transition-colors hover:border-primary/30"
-            >
-              <div className="mx-auto mb-3 flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                {stat.icon}
-              </div>
-              <div className="text-2xl font-bold text-foreground md:text-3xl">
-                {stat.displayOverride ? (
-                  <span className="font-mono">{stat.displayOverride}</span>
-                ) : (
-                  <AnimatedCounter end={stat.value} suffix={stat.suffix} prefix={stat.prefix} />
-                )}
-              </div>
-              <p className="mt-1 text-xs text-muted-foreground md:text-sm">
-                {stat.label}
-              </p>
-            </div>
-          ))}
         </div>
       </div>
     </section>
