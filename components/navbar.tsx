@@ -2,23 +2,25 @@
 
 import { useState } from "react"
 import { useTheme } from "next-themes"
-import { Sun, Moon, Menu, X } from "lucide-react"
+import { Sun, Moon, Menu, X, Languages } from "lucide-react"
 import { Button } from "@/components/ui/button"
-
-const navLinks = [
-  { label: "Metrics", href: "#metrics" },
-  { label: "Services", href: "#services" },
-  { label: "Workflow", href: "#workflow" },
-  { label: "Case Studies", href: "#case-studies" },
-  { label: "Skills", href: "#skills" },
-  { label: "Track Record", href: "#track-record" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "Contact", href: "#contact" },
-]
+import { useI18n } from "@/lib/i18n/context"
 
 export function Navbar() {
   const { theme, setTheme } = useTheme()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const { locale, setLocale, t } = useI18n()
+
+  const navLinks = [
+    { label: t.nav.metrics, href: "#metrics" },
+    { label: t.nav.services, href: "#services" },
+    { label: t.nav.workflow, href: "#workflow" },
+    { label: t.nav.caseStudies, href: "#case-studies" },
+    { label: t.nav.skills, href: "#skills" },
+    { label: t.nav.trackRecord, href: "#track-record" },
+    { label: t.nav.pricing, href: "#pricing" },
+    { label: t.nav.contact, href: "#contact" },
+  ]
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
@@ -45,6 +47,21 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-2">
+          {/* Locale toggle */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setLocale(locale === "en" ? "ko" : "en")}
+            className="h-9 w-9 rounded-lg"
+            aria-label="Toggle language"
+          >
+            <Languages className="h-4 w-4" />
+            <span className="absolute -bottom-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[9px] font-bold text-primary-foreground">
+              {locale === "en" ? "KO" : "EN"}
+            </span>
+          </Button>
+
+          {/* Theme toggle */}
           <Button
             variant="ghost"
             size="icon"
@@ -67,7 +84,7 @@ export function Navbar() {
           </Button>
 
           <Button size="sm" className="hidden rounded-lg md:inline-flex" asChild>
-            <a href="#contact">Get a Quote</a>
+            <a href="#contact">{t.nav.getQuote}</a>
           </Button>
         </div>
       </nav>
@@ -86,7 +103,7 @@ export function Navbar() {
               </a>
             ))}
             <Button size="sm" className="mt-2 rounded-lg" asChild>
-              <a href="#contact" onClick={() => setMobileOpen(false)}>Get a Quote</a>
+              <a href="#contact" onClick={() => setMobileOpen(false)}>{t.nav.getQuote}</a>
             </Button>
           </div>
         </div>

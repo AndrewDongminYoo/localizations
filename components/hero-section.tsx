@@ -1,8 +1,13 @@
+"use client"
+
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
+import { useI18n } from "@/lib/i18n/context"
 
 export function HeroSection() {
+  const { t } = useI18n()
+
   return (
     <section className="relative overflow-hidden pb-20 pt-32 md:pb-28 md:pt-40">
       {/* Background decoration */}
@@ -15,33 +20,32 @@ export function HeroSection() {
         <div className="mx-auto max-w-3xl text-center">
           <Badge variant="secondary" className="mb-6 gap-1.5 rounded-lg border border-border px-3 py-1 text-xs font-medium text-muted-foreground">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary" />
-            Available for new projects
+            {t.hero.badge}
           </Badge>
 
           <h1 className="text-balance text-4xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl">
-            {"Andrew, Yu"}
+            {t.hero.name}
           </h1>
 
           <p className="mx-auto mt-4 text-pretty text-lg text-muted-foreground md:text-xl">
-            Korean Localization,{" "}
-            <span className="font-semibold text-primary">Developer-Grade</span>{" "}
-            Precision
+            {t.hero.subtitle}{" "}
+            <span className="font-semibold text-primary">{t.hero.subtitleHighlight}</span>{" "}
+            {t.hero.subtitleEnd}
           </p>
 
           <p className="mx-auto mt-4 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground">
-            I bridge the gap between your dev team and the Korean market. Not just translation{" "}
-            {"— technical localization that ships without breaking your build."}
+            {t.hero.description}
           </p>
 
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button size="lg" className="w-full rounded-lg sm:w-auto" asChild>
               <a href="#case-studies">
-                See Case Studies
+                {t.hero.ctaCaseStudies}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </a>
             </Button>
             <Button variant="outline" size="lg" className="w-full rounded-lg sm:w-auto" asChild>
-              <a href="#pricing">View Pricing</a>
+              <a href="#pricing">{t.hero.ctaPricing}</a>
             </Button>
           </div>
         </div>

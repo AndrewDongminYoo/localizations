@@ -13,49 +13,38 @@ import {
   Lock,
   Check,
 } from "lucide-react"
+import { useI18n } from "@/lib/i18n/context"
 
-const achievements = [
-  {
-    icon: <Shield className="h-4 w-4" />,
-    text: "Zero format-related crashes across 2+ years",
-  },
-  {
-    icon: <Star className="h-4 w-4" />,
-    text: "4.5+ star rating with positive localization feedback",
-  },
-  {
-    icon: <AlertCircle className="h-4 w-4" />,
-    text: "Proactive quality: flagged Android strings after deprecation",
-  },
-  {
-    icon: <Rocket className="h-4 w-4" />,
-    text: "Team efficiency: deployments without Korean re-review",
-  },
-  {
-    icon: <FileText className="h-4 w-4" />,
-    text: "Documentation: maintained glossaries and context guidelines",
-  },
-]
-
-const platforms = [
-  { name: "Localise.biz", role: "Primary" },
-  { name: "Localazy", role: "Secondary" },
-  { name: "Contentful CMS", role: "Web content" },
+const achievementIcons = [
+  <Shield key="shield" className="h-4 w-4" />,
+  <Star key="star" className="h-4 w-4" />,
+  <AlertCircle key="alert" className="h-4 w-4" />,
+  <Rocket key="rocket" className="h-4 w-4" />,
+  <FileText key="file" className="h-4 w-4" />,
 ]
 
 export function TrackRecordSection() {
+  const { t } = useI18n()
+
+  const scopeItems = [
+    { label: t.trackRecord.scopeLabels.platforms, value: t.trackRecord.scopeValues.platforms },
+    { label: t.trackRecord.scopeLabels.duration, value: t.trackRecord.scopeValues.duration },
+    { label: t.trackRecord.scopeLabels.crashes, value: t.trackRecord.scopeValues.crashes },
+    { label: t.trackRecord.scopeLabels.rating, value: t.trackRecord.scopeValues.rating },
+  ]
+
   return (
     <section id="track-record" className="py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-medium uppercase tracking-widest text-primary">
-            Proven results
+            {t.trackRecord.tag}
           </p>
           <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-            Proven Track Record
+            {t.trackRecord.title}
           </h2>
           <p className="mt-4 text-pretty text-muted-foreground">
-            {"Long-term partnership delivering production-grade Korean localization for a neurodivergent-focused productivity app."}
+            {t.trackRecord.description}
           </p>
         </div>
 
@@ -90,10 +79,10 @@ export function TrackRecordSection() {
             {/* Platforms managed */}
             <div className="mt-6 border-t border-border pt-6">
               <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                Platforms managed
+                {t.trackRecord.platformsManaged}
               </p>
               <div className="mt-3 flex flex-col gap-2">
-                {platforms.map((platform) => (
+                {t.trackRecord.platforms.map((platform) => (
                   <div
                     key={platform.name}
                     className="flex items-center justify-between rounded-lg bg-secondary/50 px-3 py-2"
@@ -111,30 +100,30 @@ export function TrackRecordSection() {
             <div className="mt-6 flex items-start gap-3 rounded-lg border border-border bg-muted/50 p-4">
               <Lock className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
               <p className="text-xs leading-relaxed text-muted-foreground">
-                {"Work involves NDA-protected codebase. Methodologies and quality standards demonstrated here are applicable to any engagement."}
+                {t.trackRecord.ndaNotice}
               </p>
             </div>
           </div>
 
           {/* Achievements */}
           <div className="rounded-xl border border-border bg-card p-6 md:p-8 lg:col-span-3">
-            <h3 className="text-lg font-semibold text-foreground">Key Achievements</h3>
+            <h3 className="text-lg font-semibold text-foreground">{t.trackRecord.keyAchievements}</h3>
             <p className="mt-1 text-sm text-muted-foreground">
-              Measurable outcomes from an ongoing production partnership
+              {t.trackRecord.achievementsSubtitle}
             </p>
 
             <div className="mt-6 flex flex-col gap-3">
-              {achievements.map((item, i) => (
+              {t.trackRecord.achievements.map((text, i) => (
                 <div
                   key={i}
                   className="group flex items-start gap-4 rounded-lg border border-border bg-background p-4 transition-colors hover:border-primary/30"
                 >
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                    {item.icon}
+                    {achievementIcons[i]}
                   </div>
                   <div className="flex items-center gap-2 pt-1">
                     <Check className="h-3.5 w-3.5 shrink-0 text-primary" />
-                    <span className="text-sm leading-relaxed text-foreground">{item.text}</span>
+                    <span className="text-sm leading-relaxed text-foreground">{text}</span>
                   </div>
                 </div>
               ))}
@@ -142,12 +131,7 @@ export function TrackRecordSection() {
 
             {/* Scope summary */}
             <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
-              {[
-                { label: "Platforms", value: "3" },
-                { label: "Duration", value: "2+ yrs" },
-                { label: "Crashes", value: "0" },
-                { label: "Rating", value: "4.5+" },
-              ].map((stat) => (
+              {scopeItems.map((stat) => (
                 <div
                   key={stat.label}
                   className="flex flex-col items-center rounded-lg border border-border bg-muted/30 px-4 py-3"

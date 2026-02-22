@@ -1,86 +1,41 @@
 "use client"
 
 import { Code2, Brain, Smartphone, GitBranch, Check } from "lucide-react"
+import { useI18n } from "@/lib/i18n/context"
 
-const pillars = [
-  {
-    icon: <Code2 className="h-5 w-5" />,
-    title: "Technical Understanding",
-    description:
-      "I read your codebase, not just your strings. Understanding format specifiers, pluralization rules, and platform-specific constraints means zero localization-induced crashes.",
-    checklist: [
-      "Platform-specific placeholder management (iOS: %@, Android: %1$s)",
-      "ICU MessageFormat handling",
-      "API integration (Lokalise, Localazy, Localizely)",
-      "Version control with meaningful commits",
-    ],
-    tags: ["String Interpolation", "Plural Rules", "Format Specifiers"],
-  },
-  {
-    icon: <Brain className="h-5 w-5" />,
-    title: "Context-Aware Localization",
-    description:
-      "Korean honorifics, text length expansion, and cultural nuance handled with precision. I consider the UI context, not just the dictionary definition.",
-    checklist: [
-      "Investigated UI context before translating",
-      'Disambiguated dual-meaning words ("Plan" example)',
-      "Natural Korean expression vs. literal translation",
-      "Tracked product changes (Plan tab \u2192 Today tab)",
-    ],
-    tags: ["Honorifics", "Cultural Nuance", "Length Constraints"],
-  },
-  {
-    icon: <Smartphone className="h-5 w-5" />,
-    title: "UI/UX Testing",
-    description:
-      "Every translation is verified in-context on real devices. Text truncation, layout overflow, and edge cases are caught before your users see them.",
-    checklist: [
-      "Tested every string in actual app (not just platform)",
-      "Verified layout on real iOS devices",
-      "Multi-context string validation",
-      "Length optimization for Korean text expansion",
-    ],
-    tags: ["Device Testing", "Layout QA", "Screenshot Review"],
-  },
-  {
-    icon: <GitBranch className="h-5 w-5" />,
-    title: "Developer Workflow",
-    description:
-      "I integrate directly into your CI/CD pipeline. Pull requests, branch-based workflows, and automation-first delivery mean no manual file juggling.",
-    checklist: [
-      "Git-based workflow with structured commits",
-      "Project-specific glossaries and context docs",
-      "Automated format validation",
-      "Translation platform API scripting",
-    ],
-    tags: ["CI/CD", "Git Workflow", "API Integration"],
-  },
+const pillarIcons = [
+  <Code2 key="code" className="h-5 w-5" />,
+  <Brain key="brain" className="h-5 w-5" />,
+  <Smartphone key="phone" className="h-5 w-5" />,
+  <GitBranch key="git" className="h-5 w-5" />,
 ]
 
 export function PillarsSection() {
+  const { t } = useI18n()
+
   return (
     <section id="services" className="py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-medium uppercase tracking-widest text-primary">
-            What sets me apart
+            {t.pillars.tag}
           </p>
           <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-            More Than Translation
+            {t.pillars.title}
           </h2>
           <p className="mt-4 text-pretty text-muted-foreground">
-            {"Traditional translators deliver text. I deliver production-ready localized assets that integrate seamlessly with your development workflow."}
+            {t.pillars.description}
           </p>
         </div>
 
         <div className="mt-14 grid gap-4 md:grid-cols-2 lg:gap-6">
-          {pillars.map((pillar) => (
+          {t.pillars.items.map((pillar, index) => (
             <div
               key={pillar.title}
               className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/30 hover:shadow-lg md:p-8"
             >
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                {pillar.icon}
+                {pillarIcons[index]}
               </div>
               <h3 className="mt-4 text-lg font-semibold text-foreground">
                 {pillar.title}
