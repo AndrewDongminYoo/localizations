@@ -5,7 +5,6 @@ import {
   FileCode2,
   GitBranch,
   ShieldCheck,
-  Workflow,
   Languages,
   FileText,
   FolderOpen,
@@ -24,6 +23,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { useI18n } from "@/lib/i18n/context"
 
 interface Skill {
   name: string
@@ -32,7 +32,7 @@ interface Skill {
 }
 
 interface SkillCategory {
-  title: string
+  titleKey: string
   icon: React.ReactNode
   gradientFrom: string
   gradientTo: string
@@ -42,7 +42,7 @@ interface SkillCategory {
 
 const categories: SkillCategory[] = [
   {
-    title: "Localization Platforms",
+    titleKey: "localizationPlatforms",
     icon: <Globe className="h-5 w-5" />,
     gradientFrom: "from-primary/8",
     gradientTo: "to-primary/2",
@@ -75,7 +75,7 @@ const categories: SkillCategory[] = [
     ],
   },
   {
-    title: "Technical Formats",
+    titleKey: "technicalFormats",
     icon: <FileCode2 className="h-5 w-5" />,
     gradientFrom: "from-chart-2/8",
     gradientTo: "to-chart-2/2",
@@ -108,7 +108,7 @@ const categories: SkillCategory[] = [
     ],
   },
   {
-    title: "Developer Tools",
+    titleKey: "developerTools",
     icon: <GitBranch className="h-5 w-5" />,
     gradientFrom: "from-chart-3/8",
     gradientTo: "to-chart-3/2",
@@ -141,7 +141,7 @@ const categories: SkillCategory[] = [
     ],
   },
   {
-    title: "Quality Assurance",
+    titleKey: "qualityAssurance",
     icon: <ShieldCheck className="h-5 w-5" />,
     gradientFrom: "from-chart-5/8",
     gradientTo: "to-chart-5/2",
@@ -202,6 +202,9 @@ function SkillItem({ skill }: { skill: Skill }) {
 }
 
 function CategoryCard({ category }: { category: SkillCategory }) {
+  const { t } = useI18n()
+  const title = t.skills.categories[category.titleKey as keyof typeof t.skills.categories]
+
   return (
     <div
       className={`group relative overflow-hidden rounded-xl border border-border bg-gradient-to-br ${category.gradientFrom} ${category.gradientTo} p-6 transition-all ${category.borderAccent}`}
@@ -210,7 +213,7 @@ function CategoryCard({ category }: { category: SkillCategory }) {
         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-background/80 text-foreground shadow-sm">
           {category.icon}
         </div>
-        <h3 className="text-lg font-semibold text-foreground">{category.title}</h3>
+        <h3 className="text-lg font-semibold text-foreground">{title}</h3>
       </div>
       <div className="mt-5 flex flex-col gap-2">
         {category.skills.map((skill) => (
@@ -222,25 +225,27 @@ function CategoryCard({ category }: { category: SkillCategory }) {
 }
 
 export function SkillsSection() {
+  const { t } = useI18n()
+
   return (
     <TooltipProvider delayDuration={200}>
       <section id="skills" className="py-20 md:py-28">
         <div className="mx-auto max-w-6xl px-6">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-sm font-medium uppercase tracking-widest text-primary">
-              Technical toolkit
+              {t.skills.tag}
             </p>
             <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-              Skills & Tools
+              {t.skills.title}
             </h2>
             <p className="mt-4 text-pretty text-muted-foreground">
-              {"The platforms, formats, and workflows I use daily to deliver production-ready Korean localization. Hover over any skill to learn more."}
+              {t.skills.description}
             </p>
           </div>
 
           <div className="mt-14 grid gap-4 md:grid-cols-2 lg:gap-6">
             {categories.map((category) => (
-              <CategoryCard key={category.title} category={category} />
+              <CategoryCard key={category.titleKey} category={category} />
             ))}
           </div>
         </div>

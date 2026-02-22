@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from "react"
 import { Calendar, ShieldCheck, Monitor, Smartphone } from "lucide-react"
+import { useI18n } from "@/lib/i18n/context"
 
 interface CounterConfig {
   end: number
@@ -45,13 +46,10 @@ function useAnimatedCounter(config: CounterConfig, isVisible: boolean) {
   return display
 }
 
-const metrics = [
+const metricConfigs = [
   {
     counter: { end: 2, suffix: "+", prefix: "", displayOverride: "2+" },
-    subtitle: "Continuous Collaboration",
-    unit: "Years",
     icon: Calendar,
-    description: "Long-term partnership with Tiimo ApS since 2023",
     gradient: "from-blue-500/20 via-blue-400/10 to-transparent",
     gradientDark: "dark:from-blue-500/15 dark:via-blue-400/5 dark:to-transparent",
     iconBg: "bg-blue-500/15 text-blue-600 dark:text-blue-400",
@@ -60,10 +58,7 @@ const metrics = [
   },
   {
     counter: { end: 0, suffix: "", prefix: "", displayOverride: "0" },
-    subtitle: "Format-Related Errors",
-    unit: "Crashes",
     icon: ShieldCheck,
-    description: "Zero runtime errors from localization over 24+ months",
     gradient: "from-emerald-500/20 via-emerald-400/10 to-transparent",
     gradientDark: "dark:from-emerald-500/15 dark:via-emerald-400/5 dark:to-transparent",
     iconBg: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400",
@@ -72,10 +67,7 @@ const metrics = [
   },
   {
     counter: { end: 3, suffix: "", prefix: "", displayOverride: "3" },
-    subtitle: "iOS, Android, Web",
-    unit: "Platforms",
     icon: Monitor,
-    description: "Consistent quality across all user touchpoints",
     gradient: "from-amber-500/20 via-amber-400/10 to-transparent",
     gradientDark: "dark:from-amber-500/15 dark:via-amber-400/5 dark:to-transparent",
     iconBg: "bg-amber-500/15 text-amber-600 dark:text-amber-400",
@@ -84,10 +76,7 @@ const metrics = [
   },
   {
     counter: { end: 100, suffix: "%", prefix: "" },
-    subtitle: "Real Device Testing",
-    unit: "Validated",
     icon: Smartphone,
-    description: "Every string tested in actual app UI before release",
     gradient: "from-rose-500/20 via-rose-400/10 to-transparent",
     gradientDark: "dark:from-rose-500/15 dark:via-rose-400/5 dark:to-transparent",
     iconBg: "bg-rose-500/15 text-rose-600 dark:text-rose-400",
@@ -97,59 +86,54 @@ const metrics = [
 ]
 
 function MetricCard({
-  metric,
+  config,
+  cardText,
   isVisible,
   index,
 }: {
-  metric: (typeof metrics)[0]
+  config: (typeof metricConfigs)[0]
+  cardText: { unit: string; subtitle: string; description: string }
   isVisible: boolean
   index: number
 }) {
-  const display = useAnimatedCounter(metric.counter, isVisible)
-  const Icon = metric.icon
+  const display = useAnimatedCounter(config.counter, isVisible)
+  const Icon = config.icon
 
   return (
     <div
-      className={`group relative overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 ${metric.borderHover} hover:-translate-y-1 hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20`}
+      className={`group relative overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 ${config.borderHover} hover:-translate-y-1 hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-black/20`}
       style={{
-        animationDelay: `${index * 120}ms`,
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? "translateY(0)" : "translateY(20px)",
         transition: `opacity 0.5s ease ${index * 120}ms, transform 0.5s ease ${index * 120}ms`,
       }}
     >
-      {/* Gradient background */}
       <div
-        className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${metric.gradient} ${metric.gradientDark}`}
+        className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${config.gradient} ${config.gradientDark}`}
       />
 
       <div className="relative flex flex-col p-6">
-        {/* Icon */}
-        <div className={`mb-5 flex h-11 w-11 items-center justify-center rounded-xl ${metric.iconBg}`}>
+        <div className={`mb-5 flex h-11 w-11 items-center justify-center rounded-xl ${config.iconBg}`}>
           <Icon className="h-5 w-5" strokeWidth={1.8} />
         </div>
 
-        {/* Counter */}
         <div className="mb-1 flex items-baseline gap-2">
-          <span className={`font-mono text-4xl font-bold tracking-tight ${metric.accentColor} md:text-5xl`}>
+          <span className={`font-mono text-4xl font-bold tracking-tight ${config.accentColor} md:text-5xl`}>
             {display}
           </span>
-          <span className="text-sm font-medium text-muted-foreground">{metric.unit}</span>
+          <span className="text-sm font-medium text-muted-foreground">{cardText.unit}</span>
         </div>
 
-        {/* Subtitle */}
         <p className="mb-3 text-sm font-semibold text-foreground">
-          {metric.subtitle}
+          {cardText.subtitle}
         </p>
 
-        {/* Description */}
         <p className="text-sm leading-relaxed text-muted-foreground">
-          {metric.description}
+          {cardText.description}
         </p>
 
-        {/* Decorative bottom line */}
         <div
-          className={`mt-5 h-0.5 w-0 rounded-full bg-gradient-to-r ${metric.gradient.replace("/20", "/40").replace("/10", "/30")} transition-all duration-500 group-hover:w-full`}
+          className={`mt-5 h-0.5 w-0 rounded-full bg-gradient-to-r ${config.gradient.replace("/20", "/40").replace("/10", "/30")} transition-all duration-500 group-hover:w-full`}
         />
       </div>
     </div>
@@ -159,6 +143,7 @@ function MetricCard({
 export function MetricsDashboard() {
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
+  const { t } = useI18n()
 
   const handleIntersection = useCallback(([entry]: IntersectionObserverEntry[]) => {
     if (entry.isIntersecting) {
@@ -179,25 +164,24 @@ export function MetricsDashboard() {
   return (
     <section ref={sectionRef} id="metrics" className="py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-6">
-        {/* Section header */}
         <div className="mx-auto mb-14 max-w-2xl text-center">
           <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary">
-            Track Record
+            {t.metrics.tag}
           </p>
           <h2 className="text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-            Numbers That Speak for Themselves
+            {t.metrics.title}
           </h2>
           <p className="mt-4 text-pretty leading-relaxed text-muted-foreground">
-            Measurable results from real production localization work, not estimates.
+            {t.metrics.description}
           </p>
         </div>
 
-        {/* Metrics grid */}
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {metrics.map((metric, index) => (
+          {metricConfigs.map((config, index) => (
             <MetricCard
-              key={metric.subtitle}
-              metric={metric}
+              key={index}
+              config={config}
+              cardText={t.metrics.cards[index]}
               isVisible={isVisible}
               index={index}
             />

@@ -6,9 +6,11 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Calendar, Mail, Send, CheckCircle2 } from "lucide-react"
+import { useI18n } from "@/lib/i18n/context"
 
 export function ContactSection() {
   const [submitted, setSubmitted] = useState(false)
+  const { t } = useI18n()
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -20,13 +22,13 @@ export function ContactSection() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-medium uppercase tracking-widest text-primary">
-            Get in touch
+            {t.contact.tag}
           </p>
           <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-            {"Let's Ship Korean Together"}
+            {t.contact.title}
           </h2>
           <p className="mt-4 text-pretty text-muted-foreground">
-            {"Tell me about your project and I'll get back to you within 24 hours with a tailored proposal."}
+            {t.contact.description}
           </p>
         </div>
 
@@ -39,17 +41,17 @@ export function ContactSection() {
                   <CheckCircle2 className="h-7 w-7 text-primary" />
                 </div>
                 <h3 className="mt-4 text-lg font-semibold text-foreground">
-                  Message Sent
+                  {t.contact.success.title}
                 </h3>
                 <p className="mt-2 max-w-sm text-sm text-muted-foreground">
-                  {"Thanks for reaching out! I'll review your project details and get back to you within 24 hours."}
+                  {t.contact.success.description}
                 </p>
                 <Button
                   variant="outline"
                   className="mt-6 rounded-lg"
                   onClick={() => setSubmitted(false)}
                 >
-                  Send Another
+                  {t.contact.success.sendAnother}
                 </Button>
               </div>
             ) : (
@@ -57,24 +59,24 @@ export function ContactSection() {
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div className="flex flex-col gap-2">
                     <Label htmlFor="name" className="text-sm font-medium text-foreground">
-                      Name
+                      {t.contact.form.name}
                     </Label>
                     <Input
                       id="name"
                       required
-                      placeholder="Your name"
+                      placeholder={t.contact.form.namePlaceholder}
                       className="rounded-lg"
                     />
                   </div>
                   <div className="flex flex-col gap-2">
                     <Label htmlFor="email" className="text-sm font-medium text-foreground">
-                      Email
+                      {t.contact.form.email}
                     </Label>
                     <Input
                       id="email"
                       type="email"
                       required
-                      placeholder="you@company.com"
+                      placeholder={t.contact.form.emailPlaceholder}
                       className="rounded-lg"
                     />
                   </div>
@@ -82,18 +84,18 @@ export function ContactSection() {
 
                 <div className="flex flex-col gap-2">
                   <Label htmlFor="company" className="text-sm font-medium text-foreground">
-                    Company / App Name
+                    {t.contact.form.company}
                   </Label>
                   <Input
                     id="company"
-                    placeholder="Acme Inc."
+                    placeholder={t.contact.form.companyPlaceholder}
                     className="rounded-lg"
                   />
                 </div>
 
                 <div className="flex flex-col gap-2">
                   <Label htmlFor="platform" className="text-sm font-medium text-foreground">
-                    Platform
+                    {t.contact.form.platform}
                   </Label>
                   <div className="flex flex-wrap gap-2">
                     {["iOS", "Android", "Web", "Unity", "Other"].map((p) => (
@@ -110,20 +112,20 @@ export function ContactSection() {
 
                 <div className="flex flex-col gap-2">
                   <Label htmlFor="details" className="text-sm font-medium text-foreground">
-                    Project Details
+                    {t.contact.form.details}
                   </Label>
                   <Textarea
                     id="details"
                     required
                     rows={4}
-                    placeholder="Tell me about your app, word count estimate, timeline, and any specific technical requirements..."
+                    placeholder={t.contact.form.detailsPlaceholder}
                     className="rounded-lg resize-none"
                   />
                 </div>
 
                 <Button type="submit" className="w-full rounded-lg sm:w-auto sm:self-end">
                   <Send className="mr-2 h-4 w-4" />
-                  Send Message
+                  {t.contact.form.submit}
                 </Button>
               </form>
             )}
@@ -131,16 +133,15 @@ export function ContactSection() {
 
           {/* Calendly + Info sidebar */}
           <div className="flex flex-col gap-6 lg:col-span-2">
-            {/* Calendly card */}
             <div className="rounded-xl border border-border bg-card p-6">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <Calendar className="h-5 w-5" />
               </div>
               <h3 className="mt-4 text-base font-semibold text-foreground">
-                Book a Discovery Call
+                {t.contact.calendly.title}
               </h3>
               <p className="mt-2 text-sm text-muted-foreground">
-                {"Prefer to talk live? Schedule a 30-minute call to discuss your project requirements and workflow."}
+                {t.contact.calendly.description}
               </p>
               <Button variant="outline" className="mt-4 w-full rounded-lg" asChild>
                 <a
@@ -149,30 +150,28 @@ export function ContactSection() {
                   rel="noopener noreferrer"
                 >
                   <Calendar className="mr-2 h-4 w-4" />
-                  Schedule on Calendly
+                  {t.contact.calendly.button}
                 </a>
               </Button>
             </div>
 
-            {/* Quick info */}
             <div className="rounded-xl border border-border bg-card p-6">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <Mail className="h-5 w-5" />
               </div>
               <h3 className="mt-4 text-base font-semibold text-foreground">
-                Direct Contact
+                {t.contact.directContact.title}
               </h3>
               <div className="mt-3 flex flex-col gap-2 text-sm text-muted-foreground">
-                <span>hello@koreanlocalize.dev</span>
-                <span>{"Seoul, South Korea (KST / UTC+9)"}</span>
-                <span>{"Response within 24 hours"}</span>
+                <span>{t.contact.directContact.email}</span>
+                <span>{t.contact.directContact.location}</span>
+                <span>{t.contact.directContact.responseTime}</span>
               </div>
             </div>
 
-            {/* Tech stack */}
             <div className="rounded-xl border border-border bg-card p-6">
               <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                Tools I Work With
+                {t.contact.toolsTitle}
               </h3>
               <div className="mt-3 flex flex-wrap gap-2">
                 {[

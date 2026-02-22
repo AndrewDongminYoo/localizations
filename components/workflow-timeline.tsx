@@ -10,74 +10,28 @@ import {
   ChevronDown,
   Check,
 } from "lucide-react"
+import { useI18n } from "@/lib/i18n/context"
 
-const steps = [
-  {
-    id: 1,
-    title: "Context Discovery",
-    icon: <Search className="h-5 w-5" />,
-    color: "bg-primary",
-    details: [
-      "Install and use app in English",
-      "Document user journeys",
-      "Identify ambiguous terms",
-      "Review existing translations",
-    ],
-  },
-  {
-    id: 2,
-    title: "Technical Validation",
-    icon: <ShieldCheck className="h-5 w-5" />,
-    color: "bg-chart-2",
-    details: [
-      "Check platform-specific formats (iOS/Android)",
-      "Verify ICU MessageFormat syntax",
-      "Test placeholder preservation",
-      "Review API documentation",
-    ],
-  },
-  {
-    id: 3,
-    title: "Translation + Testing",
-    icon: <TestTubeDiagonal className="h-5 w-5" />,
-    color: "bg-chart-4",
-    details: [
-      "Translate in localization platform",
-      "Test in TestFlight build",
-      "Verify UI layout on real devices",
-      "Check multi-context string reuse",
-    ],
-  },
-  {
-    id: 4,
-    title: "Developer Collaboration",
-    icon: <GitPullRequest className="h-5 w-5" />,
-    color: "bg-chart-5",
-    details: [
-      "Commit with structured messages",
-      "Document changes in glossary",
-      "Flag deprecated strings",
-      "Proactive feature updates",
-    ],
-  },
-  {
-    id: 5,
-    title: "Continuous Maintenance",
-    icon: <RefreshCw className="h-5 w-5" />,
-    color: "bg-primary",
-    details: [
-      'Track product changes (e.g., "Plan" \u2192 "Today" tab)',
-      "Update FAQ/documentation",
-      "Monitor user feedback",
-      "Quarterly quality audits",
-    ],
-  },
+const stepIcons = [
+  <Search key="search" className="h-5 w-5" />,
+  <ShieldCheck key="shield" className="h-5 w-5" />,
+  <TestTubeDiagonal key="test" className="h-5 w-5" />,
+  <GitPullRequest key="git" className="h-5 w-5" />,
+  <RefreshCw key="refresh" className="h-5 w-5" />,
+]
+
+const stepColors = [
+  "bg-primary",
+  "bg-chart-2",
+  "bg-chart-4",
+  "bg-chart-5",
+  "bg-primary",
 ]
 
 function ProgressLine({ active, orientation }: { active: boolean; orientation: "horizontal" | "vertical" }) {
   if (orientation === "horizontal") {
     return (
-      <div className="relative mx-1 hidden h-0.5 flex-1 overflow-hidden rounded-full bg-border lg:block">
+      <div className="relative ml-1.5 hidden h-0.5 flex-1 overflow-hidden rounded-full bg-border lg:block" style={{ marginRight: "-0.75rem" }}>
         <div
           className="absolute inset-y-0 left-0 rounded-full bg-primary transition-all duration-700 ease-out"
           style={{ width: active ? "100%" : "0%" }}
@@ -97,13 +51,19 @@ function ProgressLine({ active, orientation }: { active: boolean; orientation: "
 }
 
 function StepCard({
-  step,
+  title,
+  details,
+  icon,
+  color,
   index,
   isActive,
   isExpanded,
   onToggle,
 }: {
-  step: (typeof steps)[0]
+  title: string
+  details: readonly string[]
+  icon: React.ReactNode
+  color: string
   index: number
   isActive: boolean
   isExpanded: boolean
@@ -128,17 +88,16 @@ function StepCard({
             : "rounded-xl border border-border bg-card hover:border-primary/20"
         }`}
       >
-        {/* Header */}
         <div className="flex items-center gap-3 p-4">
           <div
             className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-primary-foreground transition-all duration-300 ${
-              isActive || isExpanded ? step.color : "bg-muted text-muted-foreground"
+              isActive || isExpanded ? color : "bg-muted text-muted-foreground"
             }`}
           >
             {isActive && !isExpanded ? (
               <div className="absolute inset-0 animate-ping rounded-lg bg-primary/30" />
             ) : null}
-            <span className="relative">{step.icon}</span>
+            <span className="relative">{icon}</span>
           </div>
 
           <div className="min-w-0 flex-1">
@@ -147,7 +106,7 @@ function StepCard({
                 {String(index + 1).padStart(2, "0")}
               </span>
               <h3 className="truncate text-sm font-semibold text-foreground">
-                {step.title}
+                {title}
               </h3>
             </div>
           </div>
@@ -159,14 +118,13 @@ function StepCard({
           />
         </div>
 
-        {/* Expandable details */}
         <div
           className="overflow-hidden transition-all duration-300 ease-out"
           style={{ maxHeight: isExpanded ? `${contentHeight}px` : "0px" }}
         >
           <div ref={contentRef} className="border-t border-border px-4 pb-4 pt-3">
             <ul className="flex flex-col gap-2.5">
-              {step.details.map((detail) => (
+              {details.map((detail) => (
                 <li key={detail} className="flex items-start gap-2.5">
                   <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
                   <span className="text-sm leading-relaxed text-muted-foreground">
@@ -187,8 +145,8 @@ export function WorkflowTimeline() {
   const [expandedStep, setExpandedStep] = useState<number | null>(null)
   const [hasStarted, setHasStarted] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
+  const { t } = useI18n()
 
-  // Intersection observer to trigger the animation
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -206,10 +164,9 @@ export function WorkflowTimeline() {
     }
   }, [hasStarted])
 
-  // Animated progress through steps
   useEffect(() => {
     if (!hasStarted) return
-    if (activeStep >= steps.length) return
+    if (activeStep >= t.workflow.steps.length) return
 
     const timer = setTimeout(
       () => {
@@ -219,7 +176,7 @@ export function WorkflowTimeline() {
     )
 
     return () => clearTimeout(timer)
-  }, [hasStarted, activeStep])
+  }, [hasStarted, activeStep, t.workflow.steps.length])
 
   const handleToggle = (index: number) => {
     setExpandedStep(expandedStep === index ? null : index)
@@ -230,77 +187,72 @@ export function WorkflowTimeline() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-medium uppercase tracking-widest text-primary">
-            How I work
+            {t.workflow.tag}
           </p>
           <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-            Localization Workflow
+            {t.workflow.title}
           </h2>
           <p className="mt-4 text-pretty text-muted-foreground">
-            A structured, repeatable process that integrates directly into your development cycle. Click any step to see the details.
+            {t.workflow.description}
           </p>
         </div>
 
         {/* Desktop horizontal timeline */}
         <div className="mt-14 hidden lg:block">
-          {/* Progress bar at top */}
-          <div className="mb-6 flex items-center px-2">
-            {steps.map((step, index) => (
-              <div key={step.id} className="flex flex-1 items-center">
-                {/* Node circle */}
-                <div
-                  className={`relative flex h-3 w-3 shrink-0 items-center justify-center rounded-full transition-all duration-500 ${
-                    index < activeStep
-                      ? "bg-primary shadow-[0_0_8px_rgba(59,130,246,0.5)]"
-                      : "border-2 border-border bg-card"
-                  }`}
-                >
-                  {index < activeStep && (
-                    <div className="absolute h-1.5 w-1.5 rounded-full bg-primary-foreground" />
-                  )}
+          <div className="grid grid-cols-5 gap-3">
+            {t.workflow.steps.map((step, index) => (
+              <div key={index} className="flex flex-col">
+                <div className="mb-4 flex items-center">
+                  <div className="flex flex-1 items-center">
+                    <div
+                      className={`relative flex h-3 w-3 shrink-0 items-center justify-center rounded-full transition-all duration-500 ${
+                        index < activeStep
+                          ? "bg-primary shadow-[0_0_8px_rgba(59,130,246,0.5)]"
+                          : "border-2 border-border bg-card"
+                      }`}
+                    >
+                      {index < activeStep && (
+                        <div className="absolute h-1.5 w-1.5 rounded-full bg-primary-foreground" />
+                      )}
+                    </div>
+                    {index < t.workflow.steps.length - 1 && (
+                      <ProgressLine active={index + 1 < activeStep} orientation="horizontal" />
+                    )}
+                  </div>
                 </div>
 
-                {/* Connecting line (not after last) */}
-                {index < steps.length - 1 && (
-                  <ProgressLine active={index + 1 < activeStep} orientation="horizontal" />
-                )}
+                <StepCard
+                  title={step.title}
+                  details={step.details}
+                  icon={stepIcons[index]}
+                  color={stepColors[index]}
+                  index={index}
+                  isActive={index < activeStep}
+                  isExpanded={expandedStep === index}
+                  onToggle={() => handleToggle(index)}
+                />
               </div>
-            ))}
-          </div>
-
-          {/* Cards row */}
-          <div className="flex gap-3">
-            {steps.map((step, index) => (
-              <StepCard
-                key={step.id}
-                step={step}
-                index={index}
-                isActive={index < activeStep}
-                isExpanded={expandedStep === index}
-                onToggle={() => handleToggle(index)}
-              />
             ))}
           </div>
         </div>
 
         {/* Mobile vertical timeline */}
         <div className="mt-14 lg:hidden">
-          {steps.map((step, index) => (
-            <div key={step.id}>
+          {t.workflow.steps.map((step, index) => (
+            <div key={index}>
               <div className="flex items-start gap-4">
-                {/* Vertical line and node */}
                 <div className="flex flex-col items-center">
                   <div
                     className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-all duration-500 ${
                       index < activeStep
-                        ? `${step.color} text-primary-foreground shadow-sm`
+                        ? `${stepColors[index]} text-primary-foreground shadow-sm`
                         : "border border-border bg-card text-muted-foreground"
                     }`}
                   >
-                    {step.icon}
+                    {stepIcons[index]}
                   </div>
                 </div>
 
-                {/* Card */}
                 <div className="flex-1 pb-2">
                   <button
                     onClick={() => handleToggle(index)}
@@ -344,8 +296,7 @@ export function WorkflowTimeline() {
                 </div>
               </div>
 
-              {/* Vertical connecting line */}
-              {index < steps.length - 1 && (
+              {index < t.workflow.steps.length - 1 && (
                 <ProgressLine active={index + 1 < activeStep} orientation="vertical" />
               )}
             </div>
