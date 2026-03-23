@@ -7,6 +7,7 @@ cmdk
 Crect
 creds
 Csvg
+docstrings
 donminzzi
 elif
 Embla
@@ -25,13 +26,17 @@ Lokalise
 nullglob
 nums
 oklch
+omnisharp
+phpactor
 pipefail
 Pretendard
+rego
 rehype
 rgba
 SCRIPTDIR
 shellcheck
 shopt
+solargraph
 subcopy
 Tiimo
 touchpoints
