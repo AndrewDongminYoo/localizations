@@ -1,5 +1,6 @@
 import "./globals.css";
 
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
@@ -30,14 +31,10 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="font-sans antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          disableTransitionOnChange
-          enableSystem
-        >
+        <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange enableSystem>
           <I18nProvider>{children}</I18nProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
