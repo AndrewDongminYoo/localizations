@@ -15,6 +15,7 @@ Fabs
 IDFA
 knip
 lintignore
+localechange
 nullglob
 nums
 oklch

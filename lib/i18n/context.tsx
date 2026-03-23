@@ -1,11 +1,23 @@
 "use client";
 
-import { createContext, type ReactNode, useCallback, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  type ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useSyncExternalStore,
+} from "react";
 
 import en, { type Dictionary } from "./en";
 import ko from "./ko";
-
-type Locale = "en" | "ko";
+import {
+  getLocaleServerSnapshot,
+  getLocaleSnapshot,
+  type Locale,
+  persistLocale,
+  subscribeToLocale,
+} from "./locale-store";
 
 const dictionaries: Record<Locale, Dictionary> = { en, ko };
 
@@ -18,23 +30,18 @@ interface I18nContextValue {
 const I18nContext = createContext<I18nContextValue | null>(null);
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("en");
-
-  useEffect(() => {
-    const stored = localStorage.getItem("locale") as Locale | null;
-    if (stored && dictionaries[stored]) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setLocaleState(stored);
-    }
-  }, []);
+  const locale = useSyncExternalStore(
+    subscribeToLocale,
+    getLocaleSnapshot,
+    getLocaleServerSnapshot
+  );
 
   useEffect(() => {
     document.documentElement.lang = locale;
   }, [locale]);
 
   const setLocale = useCallback((l: Locale) => {
-    setLocaleState(l);
-    localStorage.setItem("locale", l);
+    persistLocale(l);
   }, []);
 
   return (
