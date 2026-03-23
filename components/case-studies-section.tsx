@@ -47,23 +47,15 @@ function PrecisionContent() {
         <CodeBlock label={s.commentBefore}>
           <div className="flex flex-col gap-1">
             <span className="text-xs text-amber-500 dark:text-amber-400">{s.commentBefore}</span>
-            <span className="text-amber-600 dark:text-amber-400">
-              {'"s": "%@ at %@ \u00B7 %@"'}
-            </span>
-            <span className="text-amber-600 dark:text-amber-400">
-              {'"t": "%@\uC5D0\uC11C %@ - %@"'}
-            </span>
+            <span className="text-amber-600 dark:text-amber-400">{'"s": "%@ at %@ · %@"'}</span>
+            <span className="text-amber-600 dark:text-amber-400">{'"t": "%@에서 %@ - %@"'}</span>
           </div>
         </CodeBlock>
         <CodeBlock label={s.commentAfter}>
           <div className="flex flex-col gap-1">
             <span className="text-xs text-emerald-500 dark:text-emerald-400">{s.commentAfter}</span>
-            <span className="text-emerald-600 dark:text-emerald-400">
-              {'"s": "%@ at %@ \u00B7 %@"'}
-            </span>
-            <span className="text-emerald-600 dark:text-emerald-400">
-              {'"t": "%@ \uC2DC %@ \u00B7 %@"'}
-            </span>
+            <span className="text-emerald-600 dark:text-emerald-400">{'"s": "%@ at %@ · %@"'}</span>
+            <span className="text-emerald-600 dark:text-emerald-400">{'"t": "%@ 시 %@ · %@"'}</span>
           </div>
         </CodeBlock>
       </div>
@@ -104,11 +96,9 @@ function CulturalContent() {
             <ResultBadge label={s.literalTranslation} variant="error" />
             <span className="text-xs text-muted-foreground">{s.machineOutput}</span>
           </div>
-          <p className="font-mono text-lg font-semibold text-foreground">
-            {"\uC218\uC0DD \uC2DD\uBB3C"}
-          </p>
+          <p className="font-mono text-lg font-semibold text-foreground">{"수생 식물"}</p>
           <p className="mt-2 text-sm text-muted-foreground">
-            {"Aquatic plants \u2014 wrong meaning entirely!"}
+            {"Aquatic plants — wrong meaning entirely!"}
           </p>
         </div>
 
@@ -117,11 +107,9 @@ function CulturalContent() {
             <ResultBadge label={s.contextAware} variant="success" />
             <span className="text-xs text-muted-foreground">{s.humanLocalization}</span>
           </div>
-          <p className="font-mono text-lg font-semibold text-foreground">
-            {"\uC2DD\uBB3C \uBB3C\uC8FC\uAE30"}
-          </p>
+          <p className="font-mono text-lg font-semibold text-foreground">{"식물 물주기"}</p>
           <p className="mt-2 text-sm text-muted-foreground">
-            {"Watering plants \u2014 correct user action"}
+            {"Watering plants — correct user action"}
           </p>
         </div>
       </div>
@@ -157,8 +145,8 @@ function DisambiguationContent() {
           {s.contextDependent}
         </p>
         {[
-          { label: s.subscriptionContext, translation: "\uC694\uAE08\uC81C" },
-          { label: s.planningContext, translation: "\uACC4\uD68D" },
+          { label: s.subscriptionContext, translation: "요금제" },
+          { label: s.planningContext, translation: "계획" },
         ].map((item, i) => (
           <div
             className="flex items-center gap-4 rounded-lg border border-border bg-card p-4"
@@ -198,11 +186,11 @@ function ConcisenessContent() {
           </div>
           <div className="rounded-md border border-destructive/20 bg-background px-4 py-3">
             <p className="font-mono text-base font-semibold text-foreground">
-              {"\uBAA8\uB4E0 \uAE30\uB2A5\uC5D0 \uB300\uD55C \uC561\uC138\uC2A4"}
+              {"모든 기능에 대한 액세스"}
             </p>
           </div>
           <p className="mt-3 text-sm text-muted-foreground">
-            {"Too long for button \u2014 overflows UI container"}
+            {"Too long for button — overflows UI container"}
           </p>
           <div className="mt-3 flex items-center gap-2">
             <div className="h-2 flex-1 overflow-hidden rounded-full bg-muted">
@@ -218,11 +206,11 @@ function ConcisenessContent() {
           </div>
           <div className="rounded-md border border-primary/20 bg-background px-4 py-3">
             <p className="font-mono text-base font-semibold text-foreground">
-              {"\uBAA8\uB4E0 \uAE30\uB2A5 \uC774\uC6A9\uD558\uAE30"}
+              {"모든 기능 이용하기"}
             </p>
           </div>
           <p className="mt-3 text-sm text-muted-foreground">
-            {"Optimized for UI \u2014 natural Korean expression"}
+            {"Optimized for UI — natural Korean expression"}
           </p>
           <div className="mt-3 flex items-center gap-2">
             <div className="h-2 flex-1 overflow-hidden rounded-full bg-muted">
@@ -240,7 +228,7 @@ function ConcisenessContent() {
 const studyKeys = ["precision", "cultural", "disambiguation", "conciseness"] as const;
 
 const studyEnglish: Record<string, string> = {
-  precision: "%@ at %@ \u00B7 %@",
+  precision: "%@ at %@ · %@",
   cultural: "Water plants",
   disambiguation: "Plan",
   conciseness: "Access all features",
@@ -254,7 +242,7 @@ const studyWhyItMatters: Record<string, string> = {
   disambiguation:
     "A single word resolved to two different Korean terms depending on where it appeared in the UI, eliminating user confusion.",
   conciseness:
-    "Korean text is typically 1.3\u20131.5x longer than English. Must test actual button rendering to ensure no overflow.",
+    "Korean text is typically 1.3–1.5x longer than English. Must test actual button rendering to ensure no overflow.",
 };
 
 const studyImpact: Record<string, string> = {

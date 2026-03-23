@@ -20,7 +20,7 @@ const en = {
     subtitleHighlight: "Developer-Grade",
     subtitleEnd: "Precision",
     description:
-      "I bridge the gap between your dev team and the Korean market. Not just translation \u2014 technical localization that ships without breaking your build.",
+      "I bridge the gap between your dev team and the Korean market. Not just translation — technical localization that ships without breaking your build.",
     ctaCaseStudies: "See Case Studies",
     ctaPricing: "View Pricing",
   },
@@ -81,7 +81,7 @@ const en = {
           "Investigated UI context before translating",
           'Disambiguated dual-meaning words ("Plan" example)',
           "Natural Korean expression vs. literal translation",
-          "Tracked product changes (Plan tab \u2192 Today tab)",
+          "Tracked product changes (Plan tab → Today tab)",
         ],
         tags: ["Honorifics", "Cultural Nuance", "Length Constraints"],
       },
@@ -158,7 +158,7 @@ const en = {
       {
         title: "Continuous Maintenance",
         details: [
-          'Track product changes (e.g., "Plan" \u2192 "Today" tab)',
+          'Track product changes (e.g., "Plan" → "Today" tab)',
           "Update FAQ/documentation",
           "Monitor user feedback",
           "Quarterly quality audits",
@@ -208,7 +208,7 @@ const en = {
         context: '"Plan" used in two different contexts',
         codeComment: "// Used in multiple UI locations",
         problem:
-          "Same English word, different meanings \u2014 Pricing page: subscription tiers vs. App features: scheduling/planning",
+          "Same English word, different meanings — Pricing page: subscription tiers vs. App features: scheduling/planning",
         contextDependent: "Context-dependent resolution",
         subscriptionContext: "Subscription context",
         planningContext: "Planning context",
@@ -217,7 +217,7 @@ const en = {
         title: "Conciseness",
         context: "Button text with space constraints",
         challenge:
-          "Korean text is typically 1.3\u20131.5x longer than English. Button text must fit the UI.",
+          "Korean text is typically 1.3–1.5x longer than English. Button text must fit the UI.",
         overflow: "Overflow",
         fits: "Fits",
         before: "Before",
