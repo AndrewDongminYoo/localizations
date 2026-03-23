@@ -382,7 +382,7 @@ const en = {
   footer: {
     tagline: "Built with Next.js. Localized with care.",
   },
-} as const;
+};
 
 export type Dictionary = typeof en;
 export default en;

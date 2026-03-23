@@ -404,6 +404,6 @@ const ko: Dictionary = {
     tagline:
       "Next.js\uB85C \uB9CC\uB4E4\uACE0. \uC815\uC131\uC744 \uB2F4\uC544 \uB85C\uCEEC\uB77C\uC774\uC988.",
   },
-} as const;
+};
 
 export default ko;
