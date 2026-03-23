@@ -29,8 +29,7 @@ const en = {
   metrics: {
     tag: "Track Record",
     title: "Numbers That Speak for Themselves",
-    description:
-      "Measurable results from real production localization work, not estimates.",
+    description: "Measurable results from real production localization work, not estimates.",
     cards: [
       {
         unit: "Years",
@@ -80,7 +79,7 @@ const en = {
           "Korean honorifics, text length expansion, and cultural nuance handled with precision. I consider the UI context, not just the dictionary definition.",
         checklist: [
           "Investigated UI context before translating",
-          "Disambiguated dual-meaning words (\"Plan\" example)",
+          'Disambiguated dual-meaning words ("Plan" example)',
           "Natural Korean expression vs. literal translation",
           "Tracked product changes (Plan tab \u2192 Today tab)",
         ],
@@ -159,7 +158,7 @@ const en = {
       {
         title: "Continuous Maintenance",
         details: [
-          "Track product changes (e.g., \"Plan\" \u2192 \"Today\" tab)",
+          'Track product changes (e.g., "Plan" \u2192 "Today" tab)',
           "Update FAQ/documentation",
           "Monitor user feedback",
           "Quarterly quality audits",
@@ -206,7 +205,7 @@ const en = {
       },
       disambiguation: {
         title: "Disambiguation",
-        context: "\"Plan\" used in two different contexts",
+        context: '"Plan" used in two different contexts',
         codeComment: "// Used in multiple UI locations",
         problem:
           "Same English word, different meanings \u2014 Pricing page: subscription tiers vs. App features: scheduling/planning",
@@ -248,8 +247,7 @@ const en = {
     description:
       "Long-term partnership delivering production-grade Korean localization for a neurodivergent-focused productivity app.",
     keyAchievements: "Key Achievements",
-    achievementsSubtitle:
-      "Measurable outcomes from an ongoing production partnership",
+    achievementsSubtitle: "Measurable outcomes from an ongoing production partnership",
     achievements: [
       "Zero format-related crashes across 2+ years",
       "4.5+ star rating with positive localization feedback",
@@ -291,8 +289,7 @@ const en = {
     tiers: [
       {
         name: "Starter",
-        description:
-          "For indie devs and small teams shipping their first Korean release.",
+        description: "For indie devs and small teams shipping their first Korean release.",
         price: "$0.08",
         unit: "per word",
         features: [
@@ -385,7 +382,7 @@ const en = {
   footer: {
     tagline: "Built with Next.js. Localized with care.",
   },
-} as const
+} as const;
 
-export type Dictionary = typeof en
-export default en
+export type Dictionary = typeof en;
+export default en;

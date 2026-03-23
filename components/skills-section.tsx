@@ -1,43 +1,39 @@
-"use client"
+"use client";
 
 import {
-  Globe,
+  BookCheck,
   FileCode2,
-  GitBranch,
-  ShieldCheck,
-  Languages,
   FileText,
   FolderOpen,
+  GitBranch,
   GitCommitHorizontal,
-  Smartphone,
+  Globe,
+  Languages,
+  Layers,
+  MonitorSmartphone,
   Plug,
   RefreshCcw,
   ScanSearch,
-  Layers,
-  MonitorSmartphone,
-  BookCheck,
-} from "lucide-react"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { useI18n } from "@/lib/i18n/context"
+  ShieldCheck,
+  Smartphone,
+} from "lucide-react";
+
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useI18n } from "@/lib/i18n/context";
 
 interface Skill {
-  name: string
-  icon: React.ReactNode
-  tooltip: string
+  name: string;
+  icon: React.ReactNode;
+  tooltip: string;
 }
 
 interface SkillCategory {
-  titleKey: string
-  icon: React.ReactNode
-  gradientFrom: string
-  gradientTo: string
-  borderAccent: string
-  skills: Skill[]
+  titleKey: string;
+  icon: React.ReactNode;
+  gradientFrom: string;
+  gradientTo: string;
+  borderAccent: string;
+  skills: Skill[];
 }
 
 const categories: SkillCategory[] = [
@@ -173,15 +169,15 @@ const categories: SkillCategory[] = [
       },
     ],
   },
-]
+];
 
 function SkillItem({ skill }: { skill: Skill }) {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
         <button
-          type="button"
           className="group/skill flex items-center gap-2.5 rounded-lg border border-transparent bg-background/60 px-3 py-2.5 text-left transition-all hover:border-border hover:bg-background"
+          type="button"
         >
           <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground transition-colors group-hover/skill:text-foreground">
             {skill.icon}
@@ -192,18 +188,18 @@ function SkillItem({ skill }: { skill: Skill }) {
         </button>
       </TooltipTrigger>
       <TooltipContent
-        side="top"
         className="max-w-xs border border-border bg-popover text-sm leading-relaxed text-popover-foreground shadow-lg"
+        side="top"
       >
         <p>{skill.tooltip}</p>
       </TooltipContent>
     </Tooltip>
-  )
+  );
 }
 
 function CategoryCard({ category }: { category: SkillCategory }) {
-  const { t } = useI18n()
-  const title = t.skills.categories[category.titleKey as keyof typeof t.skills.categories]
+  const { t } = useI18n();
+  const title = t.skills.categories[category.titleKey as keyof typeof t.skills.categories];
 
   return (
     <div
@@ -221,35 +217,33 @@ function CategoryCard({ category }: { category: SkillCategory }) {
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 export function SkillsSection() {
-  const { t } = useI18n()
+  const { t } = useI18n();
 
   return (
     <TooltipProvider delayDuration={200}>
-      <section id="skills" className="py-20 md:py-28">
+      <section className="py-20 md:py-28" id="skills">
         <div className="mx-auto max-w-6xl px-6">
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-medium uppercase tracking-widest text-primary">
+            <p className="text-sm font-medium tracking-widest text-primary uppercase">
               {t.skills.tag}
             </p>
-            <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-balance text-foreground md:text-4xl">
               {t.skills.title}
             </h2>
-            <p className="mt-4 text-pretty text-muted-foreground">
-              {t.skills.description}
-            </p>
+            <p className="mt-4 text-pretty text-muted-foreground">{t.skills.description}</p>
           </div>
 
           <div className="mt-14 grid gap-4 md:grid-cols-2 lg:gap-6">
             {categories.map((category) => (
-              <CategoryCard key={category.titleKey} category={category} />
+              <CategoryCard category={category} key={category.titleKey} />
             ))}
           </div>
         </div>
       </section>
     </TooltipProvider>
-  )
+  );
 }

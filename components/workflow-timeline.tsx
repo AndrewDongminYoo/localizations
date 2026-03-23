@@ -1,43 +1,47 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
 import {
+  Check,
+  ChevronDown,
+  GitPullRequest,
+  RefreshCw,
   Search,
   ShieldCheck,
   TestTubeDiagonal,
-  GitPullRequest,
-  RefreshCw,
-  ChevronDown,
-  Check,
-} from "lucide-react"
-import { useI18n } from "@/lib/i18n/context"
+} from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+
+import { useI18n } from "@/lib/i18n/context";
 
 const stepIcons = [
-  <Search key="search" className="h-5 w-5" />,
-  <ShieldCheck key="shield" className="h-5 w-5" />,
-  <TestTubeDiagonal key="test" className="h-5 w-5" />,
-  <GitPullRequest key="git" className="h-5 w-5" />,
-  <RefreshCw key="refresh" className="h-5 w-5" />,
-]
+  <Search className="h-5 w-5" key="search" />,
+  <ShieldCheck className="h-5 w-5" key="shield" />,
+  <TestTubeDiagonal className="h-5 w-5" key="test" />,
+  <GitPullRequest className="h-5 w-5" key="git" />,
+  <RefreshCw className="h-5 w-5" key="refresh" />,
+];
 
-const stepColors = [
-  "bg-primary",
-  "bg-chart-2",
-  "bg-chart-4",
-  "bg-chart-5",
-  "bg-primary",
-]
+const stepColors = ["bg-primary", "bg-chart-2", "bg-chart-4", "bg-chart-5", "bg-primary"];
 
-function ProgressLine({ active, orientation }: { active: boolean; orientation: "horizontal" | "vertical" }) {
+function ProgressLine({
+  active,
+  orientation,
+}: {
+  active: boolean;
+  orientation: "horizontal" | "vertical";
+}) {
   if (orientation === "horizontal") {
     return (
-      <div className="relative ml-1.5 hidden h-0.5 flex-1 overflow-hidden rounded-full bg-border lg:block" style={{ marginRight: "-0.75rem" }}>
+      <div
+        className="relative ml-1.5 hidden h-0.5 flex-1 overflow-hidden rounded-full bg-border lg:block"
+        style={{ marginRight: "-0.75rem" }}
+      >
         <div
           className="absolute inset-y-0 left-0 rounded-full bg-primary transition-all duration-700 ease-out"
           style={{ width: active ? "100%" : "0%" }}
         />
       </div>
-    )
+    );
   }
 
   return (
@@ -47,7 +51,7 @@ function ProgressLine({ active, orientation }: { active: boolean; orientation: "
         style={{ height: active ? "100%" : "0%" }}
       />
     </div>
-  )
+  );
 }
 
 function StepCard({
@@ -60,33 +64,33 @@ function StepCard({
   isExpanded,
   onToggle,
 }: {
-  title: string
-  details: readonly string[]
-  icon: React.ReactNode
-  color: string
-  index: number
-  isActive: boolean
-  isExpanded: boolean
-  onToggle: () => void
+  title: string;
+  details: readonly string[];
+  icon: React.ReactNode;
+  color: string;
+  index: number;
+  isActive: boolean;
+  isExpanded: boolean;
+  onToggle: () => void;
 }) {
-  const contentRef = useRef<HTMLDivElement>(null)
-  const [contentHeight, setContentHeight] = useState(0)
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [contentHeight, setContentHeight] = useState(0);
 
   useEffect(() => {
     if (contentRef.current) {
-      setContentHeight(contentRef.current.scrollHeight)
+      setContentHeight(contentRef.current.scrollHeight);
     }
-  }, [isExpanded])
+  }, [isExpanded]);
 
   return (
     <div className="flex-1 lg:min-w-0">
       <button
-        onClick={onToggle}
         className={`group w-full text-left transition-all duration-300 ${
           isExpanded
             ? "rounded-xl border border-primary/30 bg-card shadow-sm"
             : "rounded-xl border border-border bg-card hover:border-primary/20"
         }`}
+        onClick={onToggle}
       >
         <div className="flex items-center gap-3 p-4">
           <div
@@ -105,9 +109,7 @@ function StepCard({
               <span className="font-mono text-xs text-muted-foreground">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <h3 className="truncate text-sm font-semibold text-foreground">
-                {title}
-              </h3>
+              <h3 className="truncate text-sm font-semibold text-foreground">{title}</h3>
             </div>
           </div>
 
@@ -122,14 +124,12 @@ function StepCard({
           className="overflow-hidden transition-all duration-300 ease-out"
           style={{ maxHeight: isExpanded ? `${contentHeight}px` : "0px" }}
         >
-          <div ref={contentRef} className="border-t border-border px-4 pb-4 pt-3">
+          <div className="border-t border-border px-4 pt-3 pb-4" ref={contentRef}>
             <ul className="flex flex-col gap-2.5">
               {details.map((detail) => (
-                <li key={detail} className="flex items-start gap-2.5">
+                <li className="flex items-start gap-2.5" key={detail}>
                   <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
-                  <span className="text-sm leading-relaxed text-muted-foreground">
-                    {detail}
-                  </span>
+                  <span className="text-sm leading-relaxed text-muted-foreground">{detail}</span>
                 </li>
               ))}
             </ul>
@@ -137,71 +137,69 @@ function StepCard({
         </div>
       </button>
     </div>
-  )
+  );
 }
 
 export function WorkflowTimeline() {
-  const [activeStep, setActiveStep] = useState(0)
-  const [expandedStep, setExpandedStep] = useState<number | null>(null)
-  const [hasStarted, setHasStarted] = useState(false)
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const { t } = useI18n()
+  const [activeStep, setActiveStep] = useState(0);
+  const [expandedStep, setExpandedStep] = useState<number | null>(null);
+  const [hasStarted, setHasStarted] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { t } = useI18n();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !hasStarted) {
-          setHasStarted(true)
+          setHasStarted(true);
         }
       },
       { threshold: 0.2 }
-    )
+    );
 
-    const el = sectionRef.current
-    if (el) observer.observe(el)
+    const el = sectionRef.current;
+    if (el) observer.observe(el);
     return () => {
-      if (el) observer.unobserve(el)
-    }
-  }, [hasStarted])
+      if (el) observer.unobserve(el);
+    };
+  }, [hasStarted]);
 
   useEffect(() => {
-    if (!hasStarted) return
-    if (activeStep >= t.workflow.steps.length) return
+    if (!hasStarted) return;
+    if (activeStep >= t.workflow.steps.length) return;
 
     const timer = setTimeout(
       () => {
-        setActiveStep((prev) => prev + 1)
+        setActiveStep((prev) => prev + 1);
       },
       activeStep === 0 ? 300 : 600
-    )
+    );
 
-    return () => clearTimeout(timer)
-  }, [hasStarted, activeStep, t.workflow.steps.length])
+    return () => clearTimeout(timer);
+  }, [hasStarted, activeStep, t.workflow.steps.length]);
 
   const handleToggle = (index: number) => {
-    setExpandedStep(expandedStep === index ? null : index)
-  }
+    setExpandedStep(expandedStep === index ? null : index);
+  };
 
   return (
-    <section id="workflow" className="py-20 md:py-28" ref={sectionRef}>
+    <section className="py-20 md:py-28" id="workflow" ref={sectionRef}>
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-medium uppercase tracking-widest text-primary">
+          <p className="text-sm font-medium tracking-widest text-primary uppercase">
             {t.workflow.tag}
           </p>
-          <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-balance text-foreground md:text-4xl">
             {t.workflow.title}
           </h2>
-          <p className="mt-4 text-pretty text-muted-foreground">
-            {t.workflow.description}
-          </p>
+          <p className="mt-4 text-pretty text-muted-foreground">{t.workflow.description}</p>
         </div>
 
         {/* Desktop horizontal timeline */}
         <div className="mt-14 hidden lg:block">
           <div className="grid grid-cols-5 gap-3">
             {t.workflow.steps.map((step, index) => (
-              <div key={index} className="flex flex-col">
+              <div className="flex flex-col" key={index}>
                 <div className="mb-4 flex items-center">
                   <div className="flex flex-1 items-center">
                     <div
@@ -222,14 +220,14 @@ export function WorkflowTimeline() {
                 </div>
 
                 <StepCard
-                  title={step.title}
+                  color={stepColors[index]}
                   details={step.details}
                   icon={stepIcons[index]}
-                  color={stepColors[index]}
                   index={index}
                   isActive={index < activeStep}
                   isExpanded={expandedStep === index}
                   onToggle={() => handleToggle(index)}
+                  title={step.title}
                 />
               </div>
             ))}
@@ -255,21 +253,19 @@ export function WorkflowTimeline() {
 
                 <div className="flex-1 pb-2">
                   <button
-                    onClick={() => handleToggle(index)}
                     className={`w-full text-left transition-all duration-300 ${
                       expandedStep === index
                         ? "rounded-xl border border-primary/30 bg-card shadow-sm"
                         : "rounded-xl border border-border bg-card hover:border-primary/20"
                     }`}
+                    onClick={() => handleToggle(index)}
                   >
                     <div className="flex items-center justify-between p-4">
                       <div className="flex items-center gap-2">
                         <span className="font-mono text-xs text-muted-foreground">
                           {String(index + 1).padStart(2, "0")}
                         </span>
-                        <h3 className="text-sm font-semibold text-foreground">
-                          {step.title}
-                        </h3>
+                        <h3 className="text-sm font-semibold text-foreground">{step.title}</h3>
                       </div>
                       <ChevronDown
                         className={`h-4 w-4 text-muted-foreground transition-transform duration-300 ${
@@ -279,10 +275,10 @@ export function WorkflowTimeline() {
                     </div>
 
                     {expandedStep === index && (
-                      <div className="border-t border-border px-4 pb-4 pt-3">
+                      <div className="border-t border-border px-4 pt-3 pb-4">
                         <ul className="flex flex-col gap-2.5">
                           {step.details.map((detail) => (
-                            <li key={detail} className="flex items-start gap-2.5">
+                            <li className="flex items-start gap-2.5" key={detail}>
                               <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
                               <span className="text-sm leading-relaxed text-muted-foreground">
                                 {detail}
@@ -304,5 +300,5 @@ export function WorkflowTimeline() {
         </div>
       </div>
     </section>
-  )
+  );
 }

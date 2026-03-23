@@ -1,40 +1,39 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Check } from "lucide-react"
-import { useI18n } from "@/lib/i18n/context"
+import { Check } from "lucide-react";
 
-const tierHighlightIndex = 1 // Pro tier
+import { Button } from "@/components/ui/button";
+import { useI18n } from "@/lib/i18n/context";
+
+const tierHighlightIndex = 1; // Pro tier
 
 export function PricingSection() {
-  const { t } = useI18n()
+  const { t } = useI18n();
 
   return (
-    <section id="pricing" className="py-20 md:py-28">
+    <section className="py-20 md:py-28" id="pricing">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-medium uppercase tracking-widest text-primary">
+          <p className="text-sm font-medium tracking-widest text-primary uppercase">
             {t.pricing.tag}
           </p>
-          <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-balance text-foreground md:text-4xl">
             {t.pricing.title}
           </h2>
-          <p className="mt-4 text-pretty text-muted-foreground">
-            {t.pricing.description}
-          </p>
+          <p className="mt-4 text-pretty text-muted-foreground">{t.pricing.description}</p>
         </div>
 
         <div className="mt-14 grid gap-6 md:grid-cols-3">
           {t.pricing.tiers.map((tier, index) => {
-            const isHighlighted = index === tierHighlightIndex
+            const isHighlighted = index === tierHighlightIndex;
             return (
               <div
-                key={tier.name}
                 className={`relative flex flex-col rounded-xl border p-6 transition-all md:p-8 ${
                   isHighlighted
                     ? "border-primary bg-card shadow-lg shadow-primary/5"
                     : "border-border bg-card"
                 }`}
+                key={tier.name}
               >
                 {isHighlighted && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
@@ -60,7 +59,10 @@ export function PricingSection() {
 
                 <ul className="mt-6 flex flex-1 flex-col gap-3">
                   {tier.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-2.5 text-sm text-foreground/80">
+                    <li
+                      className="flex items-start gap-2.5 text-sm text-foreground/80"
+                      key={feature}
+                    >
                       <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
                       {feature}
                     </li>
@@ -68,19 +70,19 @@ export function PricingSection() {
                 </ul>
 
                 <Button
+                  asChild
                   className="mt-8 w-full rounded-lg"
                   variant={isHighlighted ? "default" : "outline"}
-                  asChild
                 >
                   <a href="#contact">
                     {tier.name === "Enterprise" ? t.pricing.contactMe : t.pricing.getStarted}
                   </a>
                 </Button>
               </div>
-            )
+            );
           })}
         </div>
       </div>
     </section>
-  )
+  );
 }

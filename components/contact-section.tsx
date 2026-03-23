@@ -1,35 +1,34 @@
-"use client"
+"use client";
 
-import { useState, type FormEvent } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-import { Calendar, Mail, Send, CheckCircle2 } from "lucide-react"
-import { useI18n } from "@/lib/i18n/context"
+import { Calendar, CheckCircle2, Mail, Send } from "lucide-react";
+import { type FormEvent, useState } from "react";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { useI18n } from "@/lib/i18n/context";
 
 export function ContactSection() {
-  const [submitted, setSubmitted] = useState(false)
-  const { t } = useI18n()
+  const [submitted, setSubmitted] = useState(false);
+  const { t } = useI18n();
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setSubmitted(true)
+    e.preventDefault();
+    setSubmitted(true);
   }
 
   return (
-    <section id="contact" className="py-20 md:py-28">
+    <section className="py-20 md:py-28" id="contact">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-medium uppercase tracking-widest text-primary">
+          <p className="text-sm font-medium tracking-widest text-primary uppercase">
             {t.contact.tag}
           </p>
-          <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-balance text-foreground md:text-4xl">
             {t.contact.title}
           </h2>
-          <p className="mt-4 text-pretty text-muted-foreground">
-            {t.contact.description}
-          </p>
+          <p className="mt-4 text-pretty text-muted-foreground">{t.contact.description}</p>
         </div>
 
         <div className="mt-14 grid gap-8 lg:grid-cols-5">
@@ -47,63 +46,63 @@ export function ContactSection() {
                   {t.contact.success.description}
                 </p>
                 <Button
-                  variant="outline"
                   className="mt-6 rounded-lg"
                   onClick={() => setSubmitted(false)}
+                  variant="outline"
                 >
                   {t.contact.success.sendAnother}
                 </Button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+              <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div className="flex flex-col gap-2">
-                    <Label htmlFor="name" className="text-sm font-medium text-foreground">
+                    <Label className="text-sm font-medium text-foreground" htmlFor="name">
                       {t.contact.form.name}
                     </Label>
                     <Input
-                      id="name"
-                      required
-                      placeholder={t.contact.form.namePlaceholder}
                       className="rounded-lg"
+                      id="name"
+                      placeholder={t.contact.form.namePlaceholder}
+                      required
                     />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <Label htmlFor="email" className="text-sm font-medium text-foreground">
+                    <Label className="text-sm font-medium text-foreground" htmlFor="email">
                       {t.contact.form.email}
                     </Label>
                     <Input
-                      id="email"
-                      type="email"
-                      required
-                      placeholder={t.contact.form.emailPlaceholder}
                       className="rounded-lg"
+                      id="email"
+                      placeholder={t.contact.form.emailPlaceholder}
+                      required
+                      type="email"
                     />
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="company" className="text-sm font-medium text-foreground">
+                  <Label className="text-sm font-medium text-foreground" htmlFor="company">
                     {t.contact.form.company}
                   </Label>
                   <Input
+                    className="rounded-lg"
                     id="company"
                     placeholder={t.contact.form.companyPlaceholder}
-                    className="rounded-lg"
                   />
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="platform" className="text-sm font-medium text-foreground">
+                  <Label className="text-sm font-medium text-foreground" htmlFor="platform">
                     {t.contact.form.platform}
                   </Label>
                   <div className="flex flex-wrap gap-2">
                     {["iOS", "Android", "Web", "Unity", "Other"].map((p) => (
                       <label
-                        key={p}
                         className="flex cursor-pointer items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm text-foreground transition-colors hover:border-primary/50 has-[:checked]:border-primary has-[:checked]:bg-primary/5"
+                        key={p}
                       >
-                        <input type="checkbox" name="platform" value={p} className="sr-only" />
+                        <input className="sr-only" name="platform" type="checkbox" value={p} />
                         {p}
                       </label>
                     ))}
@@ -111,19 +110,19 @@ export function ContactSection() {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="details" className="text-sm font-medium text-foreground">
+                  <Label className="text-sm font-medium text-foreground" htmlFor="details">
                     {t.contact.form.details}
                   </Label>
                   <Textarea
+                    className="resize-none rounded-lg"
                     id="details"
+                    placeholder={t.contact.form.detailsPlaceholder}
                     required
                     rows={4}
-                    placeholder={t.contact.form.detailsPlaceholder}
-                    className="rounded-lg resize-none"
                   />
                 </div>
 
-                <Button type="submit" className="w-full rounded-lg sm:w-auto sm:self-end">
+                <Button className="w-full rounded-lg sm:w-auto sm:self-end" type="submit">
                   <Send className="mr-2 h-4 w-4" />
                   {t.contact.form.submit}
                 </Button>
@@ -140,15 +139,9 @@ export function ContactSection() {
               <h3 className="mt-4 text-base font-semibold text-foreground">
                 {t.contact.calendly.title}
               </h3>
-              <p className="mt-2 text-sm text-muted-foreground">
-                {t.contact.calendly.description}
-              </p>
-              <Button variant="outline" className="mt-4 w-full rounded-lg" asChild>
-                <a
-                  href="https://calendly.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+              <p className="mt-2 text-sm text-muted-foreground">{t.contact.calendly.description}</p>
+              <Button asChild className="mt-4 w-full rounded-lg" variant="outline">
+                <a href="https://calendly.com" rel="noopener noreferrer" target="_blank">
                   <Calendar className="mr-2 h-4 w-4" />
                   {t.contact.calendly.button}
                 </a>
@@ -170,18 +163,26 @@ export function ContactSection() {
             </div>
 
             <div className="rounded-xl border border-border bg-card p-6">
-              <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+              <h3 className="text-xs font-semibold tracking-widest text-muted-foreground uppercase">
                 {t.contact.toolsTitle}
               </h3>
               <div className="mt-3 flex flex-wrap gap-2">
                 {[
-                  "Lokalise", "Phrase", "Crowdin", "POEditor",
-                  "GitHub", "GitLab", "Figma", "Xcode",
-                  "Android Studio", "i18next", "react-intl",
+                  "Lokalise",
+                  "Phrase",
+                  "Crowdin",
+                  "POEditor",
+                  "GitHub",
+                  "GitLab",
+                  "Figma",
+                  "Xcode",
+                  "Android Studio",
+                  "i18next",
+                  "react-intl",
                 ].map((tool) => (
                   <span
-                    key={tool}
                     className="rounded-md bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground"
+                    key={tool}
                   >
                     {tool}
                   </span>
@@ -192,5 +193,5 @@ export function ContactSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

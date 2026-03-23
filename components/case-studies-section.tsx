@@ -1,9 +1,10 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
-import { X, Check, AlertTriangle, ArrowRight, Ruler } from "lucide-react"
-import { useI18n } from "@/lib/i18n/context"
+import { AlertTriangle, ArrowRight, Check, Ruler, X } from "lucide-react";
+import { useState } from "react";
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useI18n } from "@/lib/i18n/context";
 
 function CodeBlock({ children, label }: { children: React.ReactNode; label?: string }) {
   return (
@@ -20,27 +21,25 @@ function CodeBlock({ children, label }: { children: React.ReactNode; label?: str
       )}
       <div className="p-4 font-mono text-sm leading-relaxed">{children}</div>
     </div>
-  )
+  );
 }
 
 function ResultBadge({ variant, label }: { variant: "error" | "success"; label: string }) {
   return (
     <span
       className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-semibold ${
-        variant === "error"
-          ? "bg-destructive/10 text-destructive"
-          : "bg-primary/10 text-primary"
+        variant === "error" ? "bg-destructive/10 text-destructive" : "bg-primary/10 text-primary"
       }`}
     >
       {variant === "error" ? <X className="h-3 w-3" /> : <Check className="h-3 w-3" />}
       {label}
     </span>
-  )
+  );
 }
 
 function PrecisionContent() {
-  const { t } = useI18n()
-  const s = t.caseStudies.studies.precision
+  const { t } = useI18n();
+  const s = t.caseStudies.studies.precision;
 
   return (
     <div className="flex flex-col gap-6">
@@ -70,19 +69,22 @@ function PrecisionContent() {
       </div>
       <div className="grid gap-4 md:grid-cols-3">
         {s.checks.map((item, i) => (
-          <div key={i} className="flex items-center gap-3 rounded-lg border border-border bg-card p-4">
+          <div
+            className="flex items-center gap-3 rounded-lg border border-border bg-card p-4"
+            key={i}
+          >
             <Check className="h-4 w-4 shrink-0 text-primary" />
             <span className="text-sm text-foreground">{item}</span>
           </div>
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 function CulturalContent() {
-  const { t } = useI18n()
-  const s = t.caseStudies.studies.cultural
+  const { t } = useI18n();
+  const s = t.caseStudies.studies.cultural;
 
   return (
     <div className="flex flex-col gap-6">
@@ -99,7 +101,7 @@ function CulturalContent() {
       <div className="grid gap-4 md:grid-cols-2">
         <div className="rounded-lg border border-destructive/20 bg-destructive/5 p-5">
           <div className="mb-3 flex items-center justify-between">
-            <ResultBadge variant="error" label={s.literalTranslation} />
+            <ResultBadge label={s.literalTranslation} variant="error" />
             <span className="text-xs text-muted-foreground">{s.machineOutput}</span>
           </div>
           <p className="font-mono text-lg font-semibold text-foreground">
@@ -112,7 +114,7 @@ function CulturalContent() {
 
         <div className="rounded-lg border border-primary/20 bg-primary/5 p-5">
           <div className="mb-3 flex items-center justify-between">
-            <ResultBadge variant="success" label={s.contextAware} />
+            <ResultBadge label={s.contextAware} variant="success" />
             <span className="text-xs text-muted-foreground">{s.humanLocalization}</span>
           </div>
           <p className="font-mono text-lg font-semibold text-foreground">
@@ -124,12 +126,12 @@ function CulturalContent() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 function DisambiguationContent() {
-  const { t } = useI18n()
-  const s = t.caseStudies.studies.disambiguation
+  const { t } = useI18n();
+  const s = t.caseStudies.studies.disambiguation;
 
   return (
     <div className="flex flex-col gap-6">
@@ -146,13 +148,12 @@ function DisambiguationContent() {
       <div className="flex items-center gap-3 rounded-lg border border-chart-4/30 bg-chart-4/5 px-4 py-3">
         <AlertTriangle className="h-4 w-4 shrink-0 text-chart-4" />
         <p className="text-sm text-foreground">
-          <span className="font-semibold">{"Problem:"}</span>{" "}
-          {s.problem}
+          <span className="font-semibold">{"Problem:"}</span> {s.problem}
         </p>
       </div>
 
       <div className="flex flex-col gap-3">
-        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+        <p className="text-xs font-semibold tracking-widest text-muted-foreground uppercase">
           {s.contextDependent}
         </p>
         {[
@@ -160,8 +161,8 @@ function DisambiguationContent() {
           { label: s.planningContext, translation: "\uACC4\uD68D" },
         ].map((item, i) => (
           <div
-            key={i}
             className="flex items-center gap-4 rounded-lg border border-border bg-card p-4"
+            key={i}
           >
             <span className="shrink-0 rounded-md bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground">
               {item.label}
@@ -174,27 +175,26 @@ function DisambiguationContent() {
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 function ConcisenessContent() {
-  const { t } = useI18n()
-  const s = t.caseStudies.studies.conciseness
+  const { t } = useI18n();
+  const s = t.caseStudies.studies.conciseness;
 
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center gap-3 rounded-lg border border-chart-4/30 bg-chart-4/5 px-4 py-3">
         <Ruler className="h-4 w-4 shrink-0 text-chart-4" />
         <p className="text-sm text-foreground">
-          <span className="font-semibold">{"Challenge:"}</span>{" "}
-          {s.challenge}
+          <span className="font-semibold">{"Challenge:"}</span> {s.challenge}
         </p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
         <div className="rounded-lg border border-destructive/20 bg-destructive/5 p-5">
           <div className="mb-3">
-            <ResultBadge variant="error" label={s.before} />
+            <ResultBadge label={s.before} variant="error" />
           </div>
           <div className="rounded-md border border-destructive/20 bg-background px-4 py-3">
             <p className="font-mono text-base font-semibold text-foreground">
@@ -214,7 +214,7 @@ function ConcisenessContent() {
 
         <div className="rounded-lg border border-primary/20 bg-primary/5 p-5">
           <div className="mb-3">
-            <ResultBadge variant="success" label={s.after} />
+            <ResultBadge label={s.after} variant="success" />
           </div>
           <div className="rounded-md border border-primary/20 bg-background px-4 py-3">
             <p className="font-mono text-base font-semibold text-foreground">
@@ -233,18 +233,18 @@ function ConcisenessContent() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 // Static data for studies that don't change per locale
-const studyKeys = ["precision", "cultural", "disambiguation", "conciseness"] as const
+const studyKeys = ["precision", "cultural", "disambiguation", "conciseness"] as const;
 
 const studyEnglish: Record<string, string> = {
   precision: "%@ at %@ \u00B7 %@",
   cultural: "Water plants",
   disambiguation: "Plan",
   conciseness: "Access all features",
-}
+};
 
 const studyWhyItMatters: Record<string, string> = {
   precision:
@@ -255,42 +255,40 @@ const studyWhyItMatters: Record<string, string> = {
     "A single word resolved to two different Korean terms depending on where it appeared in the UI, eliminating user confusion.",
   conciseness:
     "Korean text is typically 1.3\u20131.5x longer than English. Must test actual button rendering to ensure no overflow.",
-}
+};
 
 const studyImpact: Record<string, string> = {
   precision: "Maintained visual consistency across all iOS views. Zero format-related crashes.",
   cultural: "Prevented task misclassification across all planning workflows",
   disambiguation: "Reduced support inquiries about pricing confusion",
   conciseness: "Eliminated all button text overflow issues across the app",
-}
+};
 
 export function CaseStudiesSection() {
-  const [activeTab, setActiveTab] = useState("precision")
-  const { t } = useI18n()
+  const [activeTab, setActiveTab] = useState("precision");
+  const { t } = useI18n();
 
   return (
-    <section id="case-studies" className="py-20 md:py-28">
+    <section className="py-20 md:py-28" id="case-studies">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-medium uppercase tracking-widest text-primary">
+          <p className="text-sm font-medium tracking-widest text-primary uppercase">
             {t.caseStudies.tag}
           </p>
-          <h2 className="mt-3 text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-balance text-foreground md:text-4xl">
             {t.caseStudies.title}
           </h2>
-          <p className="mt-4 text-pretty text-muted-foreground">
-            {t.caseStudies.description}
-          </p>
+          <p className="mt-4 text-pretty text-muted-foreground">{t.caseStudies.description}</p>
         </div>
 
         <div className="mt-14">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <Tabs className="w-full" onValueChange={setActiveTab} value={activeTab}>
             <TabsList className="mx-auto grid w-full max-w-2xl grid-cols-4 rounded-xl bg-muted p-1">
               {studyKeys.map((key) => (
                 <TabsTrigger
+                  className="rounded-lg text-xs data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm sm:text-sm"
                   key={key}
                   value={key}
-                  className="rounded-lg text-xs data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm sm:text-sm"
                 >
                   {t.caseStudies.tabs[key]}
                 </TabsTrigger>
@@ -298,16 +296,14 @@ export function CaseStudiesSection() {
             </TabsList>
 
             {studyKeys.map((key) => {
-              const studyT = t.caseStudies.studies[key]
+              const studyT = t.caseStudies.studies[key];
               return (
-                <TabsContent key={key} value={key} className="mt-8">
+                <TabsContent className="mt-8" key={key} value={key}>
                   <div className="rounded-xl border border-border bg-card">
                     <div className="border-b border-border p-6 md:p-8">
                       <div className="flex flex-col gap-2">
                         <div className="flex flex-wrap items-center gap-3">
-                          <h3 className="text-xl font-semibold text-foreground">
-                            {studyT.title}
-                          </h3>
+                          <h3 className="text-xl font-semibold text-foreground">{studyT.title}</h3>
                           <span className="rounded-md bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground">
                             {studyT.context}
                           </span>
@@ -331,7 +327,7 @@ export function CaseStudiesSection() {
                     <div className="border-t border-border p-6 md:p-8">
                       <div className="grid gap-4 md:grid-cols-2">
                         <div>
-                          <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                          <p className="text-xs font-semibold tracking-widest text-muted-foreground uppercase">
                             {t.caseStudies.whyItMatters}
                           </p>
                           <p className="mt-2 text-sm leading-relaxed text-foreground/80">
@@ -344,7 +340,9 @@ export function CaseStudiesSection() {
                               <Check className="h-4 w-4 text-primary" />
                             </div>
                             <div>
-                              <p className="text-xs text-muted-foreground">{t.caseStudies.impact}</p>
+                              <p className="text-xs text-muted-foreground">
+                                {t.caseStudies.impact}
+                              </p>
                               <p className="text-sm font-semibold text-foreground">
                                 {studyImpact[key]}
                               </p>
@@ -355,11 +353,11 @@ export function CaseStudiesSection() {
                     </div>
                   </div>
                 </TabsContent>
-              )
+              );
             })}
           </Tabs>
         </div>
       </div>
     </section>
-  )
+  );
 }

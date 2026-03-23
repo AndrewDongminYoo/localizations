@@ -1,10 +1,11 @@
-"use client"
+"use client";
 
-import { Github, Linkedin, Twitter } from "lucide-react"
-import { useI18n } from "@/lib/i18n/context"
+import { Github, Linkedin, Twitter } from "lucide-react";
+
+import { useI18n } from "@/lib/i18n/context";
 
 export function Footer() {
-  const { t } = useI18n()
+  const { t } = useI18n();
 
   return (
     <footer className="border-t border-border py-10">
@@ -16,40 +17,38 @@ export function Footer() {
           <span className="text-sm font-medium text-foreground">Andrew, Yu</span>
         </div>
 
-        <p className="text-center text-xs text-muted-foreground">
-          {t.footer.tagline}
-        </p>
+        <p className="text-center text-xs text-muted-foreground">{t.footer.tagline}</p>
 
         <div className="flex items-center gap-4">
           <a
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
             aria-label="GitHub"
             className="text-muted-foreground transition-colors hover:text-foreground"
+            href="https://github.com"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             <Github className="h-4 w-4" />
           </a>
           <a
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener noreferrer"
             aria-label="LinkedIn"
             className="text-muted-foreground transition-colors hover:text-foreground"
+            href="https://linkedin.com"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             <Linkedin className="h-4 w-4" />
           </a>
           <a
-            href="https://twitter.com"
-            target="_blank"
-            rel="noopener noreferrer"
             aria-label="Twitter"
             className="text-muted-foreground transition-colors hover:text-foreground"
+            href="https://twitter.com"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             <Twitter className="h-4 w-4" />
           </a>
         </div>
       </div>
     </footer>
-  )
+  );
 }

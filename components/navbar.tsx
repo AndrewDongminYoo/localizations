@@ -1,15 +1,16 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useTheme } from "next-themes"
-import { Sun, Moon, Menu, X, Languages } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { useI18n } from "@/lib/i18n/context"
+import { Languages, Menu, Moon, Sun, X } from "lucide-react";
+import { useTheme } from "next-themes";
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
+import { useI18n } from "@/lib/i18n/context";
 
 export function Navbar() {
-  const { theme, setTheme } = useTheme()
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const { locale, setLocale, t } = useI18n()
+  const { theme, setTheme } = useTheme();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const { locale, setLocale, t } = useI18n();
 
   const navLinks = [
     { label: t.nav.metrics, href: "#metrics" },
@@ -20,26 +21,24 @@ export function Navbar() {
     { label: t.nav.trackRecord, href: "#track-record" },
     { label: t.nav.pricing, href: "#pricing" },
     { label: t.nav.contact, href: "#contact" },
-  ]
+  ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
+    <header className="fixed top-0 right-0 left-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#" className="flex items-center gap-2">
+        <a className="flex items-center gap-2" href="#">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
             <span className="text-sm font-bold text-primary-foreground">AY</span>
           </div>
-          <span className="text-sm font-semibold text-foreground">
-            {"Andrew, Yu"}
-          </span>
+          <span className="text-sm font-semibold text-foreground">{"Andrew, Yu"}</span>
         </a>
 
         <div className="hidden items-center gap-1 md:flex">
           {navLinks.map((link) => (
             <a
-              key={link.href}
-              href={link.href}
               className="rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              href={link.href}
+              key={link.href}
             >
               {link.label}
             </a>
@@ -49,41 +48,41 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           {/* Locale toggle */}
           <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setLocale(locale === "en" ? "ko" : "en")}
-            className="h-9 w-9 rounded-lg"
             aria-label="Toggle language"
+            className="h-9 w-9 rounded-lg"
+            onClick={() => setLocale(locale === "en" ? "ko" : "en")}
+            size="icon"
+            variant="ghost"
           >
             <Languages className="h-4 w-4" />
-            <span className="absolute -bottom-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[9px] font-bold text-primary-foreground">
+            <span className="absolute -right-0.5 -bottom-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[9px] font-bold text-primary-foreground">
               {locale === "en" ? "KO" : "EN"}
             </span>
           </Button>
 
           {/* Theme toggle */}
           <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="h-9 w-9 rounded-lg"
             aria-label="Toggle theme"
+            className="h-9 w-9 rounded-lg"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            size="icon"
+            variant="ghost"
           >
-            <Sun className="h-4 w-4 rotate-0 scale-100 transition-transform dark:-rotate-90 dark:scale-0" />
-            <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-transform dark:rotate-0 dark:scale-100" />
+            <Sun className="h-4 w-4 scale-100 rotate-0 transition-transform dark:scale-0 dark:-rotate-90" />
+            <Moon className="absolute h-4 w-4 scale-0 rotate-90 transition-transform dark:scale-100 dark:rotate-0" />
           </Button>
 
           <Button
-            variant="ghost"
-            size="icon"
+            aria-label="Toggle menu"
             className="h-9 w-9 rounded-lg md:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
+            size="icon"
+            variant="ghost"
           >
             {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </Button>
 
-          <Button size="sm" className="hidden rounded-lg md:inline-flex" asChild>
+          <Button asChild className="hidden rounded-lg md:inline-flex" size="sm">
             <a href="#contact">{t.nav.getQuote}</a>
           </Button>
         </div>
@@ -94,20 +93,22 @@ export function Navbar() {
           <div className="flex flex-col gap-1 px-6 py-4">
             {navLinks.map((link) => (
               <a
-                key={link.href}
-                href={link.href}
                 className="rounded-lg px-3 py-2.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                href={link.href}
+                key={link.href}
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}
               </a>
             ))}
-            <Button size="sm" className="mt-2 rounded-lg" asChild>
-              <a href="#contact" onClick={() => setMobileOpen(false)}>{t.nav.getQuote}</a>
+            <Button asChild className="mt-2 rounded-lg" size="sm">
+              <a href="#contact" onClick={() => setMobileOpen(false)}>
+                {t.nav.getQuote}
+              </a>
             </Button>
           </div>
         </div>
       )}
     </header>
-  )
+  );
 }
