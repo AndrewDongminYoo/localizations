@@ -6,7 +6,8 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "eslint .",
-    "start": "next start"
+    "start": "next start",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@radix-ui/react-label": "2.1.8",

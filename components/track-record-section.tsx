@@ -79,7 +79,7 @@ export function TrackRecordSection() {
               </div>
               <div className="flex items-center gap-3">
                 <Calendar className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm text-foreground">{"2024 – Present (Ongoing)"}</span>
+                <span className="text-sm text-foreground">{"2024 - Present (Ongoing)"}</span>
               </div>
               <div className="flex items-center gap-3">
                 <Layers className="h-4 w-4 text-muted-foreground" />

@@ -112,7 +112,7 @@ function MetricCard({
       }}
     >
       <div
-        className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${config.gradient} ${config.gradientDark}`}
+        className={`pointer-events-none absolute inset-0 bg-linear-to-br ${config.gradient} ${config.gradientDark}`}
       />
 
       <div className="relative flex flex-col p-6">
@@ -136,7 +136,7 @@ function MetricCard({
         <p className="text-sm leading-relaxed text-muted-foreground">{cardText.description}</p>
 
         <div
-          className={`mt-5 h-0.5 w-0 rounded-full bg-gradient-to-r ${config.gradient.replace("/20", "/40").replace("/10", "/30")} transition-all duration-500 group-hover:w-full`}
+          className={`mt-5 h-0.5 w-0 rounded-full bg-linear-to-r ${config.gradient.replace("/20", "/40").replace("/10", "/30")} transition-all duration-500 group-hover:w-full`}
         />
       </div>
     </div>

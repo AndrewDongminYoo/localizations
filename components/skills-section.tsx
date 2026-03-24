@@ -203,7 +203,7 @@ function CategoryCard({ category }: { category: SkillCategory }) {
 
   return (
     <div
-      className={`group relative overflow-hidden rounded-xl border border-border bg-gradient-to-br ${category.gradientFrom} ${category.gradientTo} p-6 transition-all ${category.borderAccent}`}
+      className={`group relative overflow-hidden rounded-xl border border-border bg-linear-to-br ${category.gradientFrom} ${category.gradientTo} p-6 transition-all ${category.borderAccent}`}
     >
       <div className="flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-background/80 text-foreground shadow-sm">

@@ -3,6 +3,7 @@ AAID
 agentic
 assetlinks
 Behaviour
+Bitrise
 cmdk
 Crect
 creds
@@ -37,6 +38,7 @@ SCRIPTDIR
 shellcheck
 shopt
 solargraph
+stringsdict
 subcopy
 Tiimo
 touchpoints
