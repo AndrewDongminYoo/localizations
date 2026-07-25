@@ -1,0 +1,10 @@
+allowBuilds:
+  sharp: true
+  unrs-resolver: true
+overrides:
+  "@babel/core": "^7.29.6" # GHSA-4x5r-pxfx-6jf8
+  "brace-expansion@5": "^5.0.7" # GHSA-3jxr-9vmj-r5cp
+  "picomatch@2": "^2.3.2" # GHSA-c2c7-rcm5-vvqj
+  "picomatch@4": "^4.0.4" # GHSA-c2c7-rcm5-vvqj
+  postcss: "^8.5.10" # GHSA-qx2v-qp2m-jg93
+  smol-toml: "^1.6.1" # GHSA-v3rj-xjv7-4jmq
