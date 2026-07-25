@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { DEFAULT_LOCALE, readStoredLocale, resolveLocale } from "./locale-store";
+import { DEFAULT_LOCALE, readStoredLocale, resolveLocale } from "./locale-store.ts";
 
 test("resolveLocale keeps supported locales", () => {
   assert.equal(resolveLocale("en"), "en");
