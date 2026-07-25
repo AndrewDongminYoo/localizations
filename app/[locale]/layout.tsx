@@ -37,7 +37,10 @@ const JSON_LD = {
     "@type": "Person",
     jobTitle: "Korean App Localization Specialist",
     name: "Andrew, Yu",
-    sameAs: ["https://github.com/AndrewDongminYoo"],
+    sameAs: [
+      "https://github.com/AndrewDongminYoo",
+      "https://www.linkedin.com/in/dongmin-yu-0394a5223/",
+    ],
   },
   name: "Andrew, Yu — Korean App Localization",
   serviceType: "App localization (English to Korean)",

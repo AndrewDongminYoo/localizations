@@ -1,6 +1,6 @@
 "use client";
 
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 
 import { useI18n } from "@/lib/i18n/context";
 
@@ -32,20 +32,18 @@ export function Footer() {
           <a
             aria-label="LinkedIn"
             className="text-muted-foreground transition-colors hover:text-foreground"
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/dongmin-yu-0394a5223/"
             rel="noopener noreferrer"
             target="_blank"
           >
             <Linkedin className="h-4 w-4" />
           </a>
           <a
-            aria-label="Twitter"
+            aria-label="Email"
             className="text-muted-foreground transition-colors hover:text-foreground"
-            href="https://twitter.com"
-            rel="noopener noreferrer"
-            target="_blank"
+            href="mailto:ydm2790@gmail.com"
           >
-            <Twitter className="h-4 w-4" />
+            <Mail className="h-4 w-4" />
           </a>
         </div>
       </div>
