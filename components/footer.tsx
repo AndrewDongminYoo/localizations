@@ -23,7 +23,7 @@ export function Footer() {
           <a
             aria-label="GitHub"
             className="text-muted-foreground transition-colors hover:text-foreground"
-            href="https://github.com"
+            href="https://github.com/AndrewDongminYoo"
             rel="noopener noreferrer"
             target="_blank"
           >
