@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar, CheckCircle2, Mail, Send } from "lucide-react";
+import { Briefcase, CheckCircle2, Mail, Send } from "lucide-react";
 import { type FormEvent, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -130,20 +130,24 @@ export function ContactSection() {
             )}
           </div>
 
-          {/* Calendly + Info sidebar */}
+          {/* Upwork + Info sidebar */}
           <div className="flex flex-col gap-6 lg:col-span-2">
             <div className="rounded-xl border border-border bg-card p-6">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                <Calendar className="h-5 w-5" />
+                <Briefcase className="h-5 w-5" />
               </div>
               <h3 className="mt-4 text-base font-semibold text-foreground">
-                {t.contact.calendly.title}
+                {t.contact.upwork.title}
               </h3>
-              <p className="mt-2 text-sm text-muted-foreground">{t.contact.calendly.description}</p>
+              <p className="mt-2 text-sm text-muted-foreground">{t.contact.upwork.description}</p>
               <Button asChild className="mt-4 w-full rounded-lg" variant="outline">
-                <a href="https://calendly.com" rel="noopener noreferrer" target="_blank">
-                  <Calendar className="mr-2 h-4 w-4" />
-                  {t.contact.calendly.button}
+                <a
+                  href="https://www.upwork.com/freelancers/~016fc725ffde2a2ee2"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <Briefcase className="mr-2 h-4 w-4" />
+                  {t.contact.upwork.button}
                 </a>
               </Button>
             </div>

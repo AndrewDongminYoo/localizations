@@ -357,15 +357,15 @@ const ko: Dictionary = {
         "문의해 주셔서 감사합니다! 프로젝트 세부사항을 검토한 후 24시간 이내에 답변드리겠습니다.",
       sendAnother: "다시 보내기",
     },
-    calendly: {
-      title: "디스커버리 콜 예약",
+    upwork: {
+      title: "Upwork에서 의뢰하기",
       description:
-        "직접 대화를 선호하시나요? 30분 통화를 예약하여 프로젝트 요구사항과 워크플로우를 논의하세요.",
-      button: "Calendly에서 예약",
+        "계약 기반 진행을 선호하시나요? Upwork를 통해 에스크로 결제와 검증된 클라이언트 리뷰로 안전하게 협업하세요.",
+      button: "Upwork 프로필 보기",
     },
     directContact: {
       title: "직접 연락",
-      email: "hello@koreanlocalize.dev",
+      email: "ydm2790@gmail.com",
       location: "서울, 대한민국 (KST / UTC+9)",
       responseTime: "24시간 이내 응답",
     },

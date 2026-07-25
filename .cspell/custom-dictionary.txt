@@ -42,6 +42,7 @@ stringsdict
 subcopy
 Tiimo
 touchpoints
+Upwork
 vaul
 vercel
 worktree

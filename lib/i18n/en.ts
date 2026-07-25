@@ -363,15 +363,15 @@ const en = {
         "Thanks for reaching out! I'll review your project details and get back to you within 24 hours.",
       sendAnother: "Send Another",
     },
-    calendly: {
-      title: "Book a Discovery Call",
+    upwork: {
+      title: "Hire Me on Upwork",
       description:
-        "Prefer to talk live? Schedule a 30-minute call to discuss your project requirements and workflow.",
-      button: "Schedule on Calendly",
+        "Prefer a managed contract? Work with me through Upwork for escrow-protected payments and verified client reviews.",
+      button: "View Upwork Profile",
     },
     directContact: {
       title: "Direct Contact",
-      email: "hello@koreanlocalize.dev",
+      email: "ydm2790@gmail.com",
       location: "Seoul, South Korea (KST / UTC+9)",
       responseTime: "Response within 24 hours",
     },

@@ -40,6 +40,7 @@ const JSON_LD = {
     sameAs: [
       "https://github.com/AndrewDongminYoo",
       "https://www.linkedin.com/in/dongmin-yu-0394a5223/",
+      "https://www.upwork.com/freelancers/~016fc725ffde2a2ee2",
     ],
   },
   name: "Andrew, Yu — Korean App Localization",
