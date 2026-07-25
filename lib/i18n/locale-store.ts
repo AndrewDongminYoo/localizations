@@ -24,12 +24,9 @@ export function readStoredLocale(storage: LocaleGetter | undefined = getBrowserS
   return resolveLocale(storage?.getItem(LOCALE_STORAGE_KEY) ?? null);
 }
 
-export function getLocaleSnapshot(): Locale {
-  return readStoredLocale();
-}
-
-export function getLocaleServerSnapshot(): Locale {
-  return DEFAULT_LOCALE;
+export function getLocaleSnapshot(fallback: Locale = DEFAULT_LOCALE): Locale {
+  const stored = getBrowserStorage()?.getItem(LOCALE_STORAGE_KEY) ?? null;
+  return stored === null ? fallback : resolveLocale(stored);
 }
 
 export function persistLocale(

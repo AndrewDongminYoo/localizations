@@ -11,13 +11,7 @@ import {
 
 import en, { type Dictionary } from "./en";
 import ko from "./ko";
-import {
-  getLocaleServerSnapshot,
-  getLocaleSnapshot,
-  type Locale,
-  persistLocale,
-  subscribeToLocale,
-} from "./locale-store";
+import { getLocaleSnapshot, type Locale, persistLocale, subscribeToLocale } from "./locale-store";
 
 const dictionaries: Record<Locale, Dictionary> = { en, ko };
 
@@ -29,11 +23,17 @@ interface I18nContextValue {
 
 const I18nContext = createContext<I18nContextValue | null>(null);
 
-export function I18nProvider({ children }: { children: ReactNode }) {
+export function I18nProvider({
+  children,
+  initialLocale,
+}: {
+  children: ReactNode;
+  initialLocale: Locale;
+}) {
   const locale = useSyncExternalStore(
     subscribeToLocale,
-    getLocaleSnapshot,
-    getLocaleServerSnapshot
+    () => getLocaleSnapshot(initialLocale),
+    () => initialLocale
   );
 
   useEffect(() => {
@@ -42,6 +42,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
 
   const setLocale = useCallback((l: Locale) => {
     persistLocale(l);
+    window.history.replaceState(null, "", `/${l}`);
   }, []);
 
   return (
