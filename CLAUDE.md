@@ -25,7 +25,7 @@ pnpm exec knip
 
 Run lint and type-check before opening a PR.
 
-If any `pnpm <script>` fails with `ERR_PNPM_IGNORED_BUILDS`, run `pnpm approve-builds` once (pnpm 11 blocks dependency build scripts until approved) — or invoke the binary directly, e.g. `./node_modules/.bin/tsc --noEmit`.
+Dependency build scripts (sharp, unrs-resolver) are approved via `allowBuilds` in `pnpm-workspace.yaml`; security overrides for transitive dependencies live there too, each annotated with its GHSA id.
 
 ## Architecture
 
