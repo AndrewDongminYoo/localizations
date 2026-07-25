@@ -12,12 +12,20 @@ pnpm build        # production build
 pnpm start        # serve the built app
 pnpm lint         # run ESLint
 pnpm lint -- <path>   # lint a specific file/dir
+pnpm type-check   # tsc --noEmit
 
 # Run TypeScript tests (node:test, not Jest)
 node --test --experimental-strip-types lib/**/*.test.ts
+# Run a single test file
+node --test --experimental-strip-types lib/i18n/locale-store.test.ts
+
+# Find unused files/exports/dependencies
+pnpm exec knip
 ```
 
-Run lint before opening a PR.
+Run lint and type-check before opening a PR.
+
+If any `pnpm <script>` fails with `ERR_PNPM_IGNORED_BUILDS`, run `pnpm approve-builds` once (pnpm 11 blocks dependency build scripts until approved) — or invoke the binary directly, e.g. `./node_modules/.bin/tsc --noEmit`.
 
 ## Architecture
 
@@ -41,7 +49,7 @@ The three files work as a layered design:
 
 2. **`lib/i18n/context.tsx`** — React integration. `I18nProvider` calls `useSyncExternalStore` with the store functions to derive the current locale reactively. Exposes `useI18n()` which returns `{ locale, setLocale, t }`. The `t` value is the full typed dictionary for the active locale.
 
-3. **`lib/i18n/en.ts` / `lib/i18n/ko.ts`** — Flat nested dictionaries. `Dictionary` type is inferred from `en.ts` and `ko.ts` must satisfy it. Dictionary keys are section-namespaced (e.g. `t.hero.badge`, `t.pricing.tiers`).
+3. **`lib/i18n/en.ts` / `lib/i18n/ko.ts`** — Flat nested dictionaries. `Dictionary` type is inferred from `en.ts` (`export type Dictionary = typeof en`) and `ko.ts` is annotated with it. Dictionary keys are section-namespaced (e.g. `t.hero.badge`, `t.pricing.tiers`).
 
 To add a new locale, add a dictionary file that satisfies `Dictionary`, register it in the `dictionaries` map in `context.tsx`, and extend the `Locale` union in `locale-store.ts`.
 
@@ -64,6 +72,7 @@ ThemeProvider (next-themes, dark default)
 - ESLint enforces sorted imports (`simple-import-sort`), sorted JSX props (`perfectionist`), and React Hooks rules
 - Components: PascalCase exports in kebab-case files (e.g. `components/hero-section.tsx`)
 - Tests: `*.test.ts` co-located next to the file they cover; use `node:test` (not Jest) for `lib/` utilities
+- In test files, relative imports must include the `.ts` extension (e.g. `from "./locale-store.ts"`) — Node's type stripping does not resolve extensionless imports; `allowImportingTsExtensions` is enabled in tsconfig for this
 
 ## Commits
 
