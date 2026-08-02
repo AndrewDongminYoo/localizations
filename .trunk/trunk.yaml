@@ -21,7 +21,7 @@ lint:
     # eslint-plugin-react@7.37.5, which crashes under eslint 10
     # ("contextOrFilename.getFilename is not a function" in
     # detectReactVersion) — no eslint10-compatible release exists yet.
-    - eslint@9.39.4
+    - eslint@10.8.0
     - grype@0.110.0
     - markdownlint@0.49.1
     - cspell@10.0.1
