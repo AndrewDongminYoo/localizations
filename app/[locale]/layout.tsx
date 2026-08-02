@@ -31,21 +31,21 @@ const META: Record<Locale, { description: string; title: string }> = {
 const JSON_LD = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  availableLanguage: ["en", "ko"],
-  description: META.en.description,
-  founder: {
+  "availableLanguage": ["en", "ko"],
+  "description": META.en.description,
+  "founder": {
     "@type": "Person",
-    jobTitle: "Korean App Localization Specialist",
-    name: "Andrew, Yu",
-    sameAs: [
+    "jobTitle": "Korean App Localization Specialist",
+    "name": "Andrew, Yu",
+    "sameAs": [
       "https://github.com/AndrewDongminYoo",
       "https://www.linkedin.com/in/dongmin-yu-0394a5223/",
       "https://www.upwork.com/freelancers/~016fc725ffde2a2ee2",
     ],
   },
-  name: "Andrew, Yu — Korean App Localization",
-  serviceType: "App localization (English to Korean)",
-  url: baseUrl,
+  "name": "Andrew, Yu — Korean App Localization",
+  "serviceType": "App localization (English to Korean)",
+  "url": baseUrl,
 };
 
 export const dynamicParams = false;
@@ -63,7 +63,7 @@ export async function generateMetadata({
   return {
     alternates: {
       canonical: `/${locale}`,
-      languages: { en: "/en", ko: "/ko", "x-default": "/en" },
+      languages: { "en": "/en", "ko": "/ko", "x-default": "/en" },
     },
     description: META[locale].description,
     metadataBase: new URL(baseUrl),

@@ -18,7 +18,7 @@ Single-page portfolio/landing page for Andrew Yu, a Korean localization speciali
 
 ## Codebase Structure
 
-```
+```plaintext
 app/             # Next.js App Router entrypoints (layout.tsx, page.tsx, globals.css)
 components/      # Page section components (hero-section, navbar, pricing-section, etc.)
 components/ui/   # shadcn/ui primitives (badge, button, input, tabs, tooltip, etc.)
@@ -33,7 +33,7 @@ public/          # Static assets
 
 ## Provider Tree (app/layout.tsx)
 
-```
+```plaintext
 ThemeProvider (next-themes, dark default)
   └── I18nProvider
         └── page content

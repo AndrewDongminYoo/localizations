@@ -56,7 +56,7 @@ node --test --experimental-strip-types lib/**/*.test.ts
 
 ## Project Structure
 
-```
+```plaintext
 app/
   layout.tsx          # root layout — ThemeProvider → I18nProvider
   page.tsx            # single page, composes all section components

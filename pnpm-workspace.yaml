@@ -2,12 +2,12 @@ allowBuilds:
   sharp: true
   unrs-resolver: true
 overrides:
-  "@babel/core": "^7.29.6" # GHSA-4x5r-pxfx-6jf8
-  "brace-expansion@1": "^1.1.16" # GHSA-3jxr-9vmj-r5cp
-  "brace-expansion@5": "^5.0.7" # GHSA-3jxr-9vmj-r5cp
-  js-yaml: "^4.3.0" # GHSA-52cp-r559-cp3m, GHSA-h67p-54hq-rp68
-  "picomatch@2": "^2.3.2" # GHSA-c2c7-rcm5-vvqj
-  "picomatch@4": "^4.0.4" # GHSA-c2c7-rcm5-vvqj
-  postcss: "^8.5.10" # GHSA-qx2v-qp2m-jg93
-  sharp: "^0.35.0" # GHSA-f88m-g3jw-g9cj
-  smol-toml: "^1.6.1" # GHSA-v3rj-xjv7-4jmq
+  "@babel/core": ^7.29.6 # GHSA-4x5r-pxfx-6jf8
+  "brace-expansion@1": ^1.1.17 # GHSA-3jxr-9vmj-r5cp, GHSA-mh99-v99m-4gvg
+  "brace-expansion@5": ^5.0.8 # GHSA-3jxr-9vmj-r5cp, GHSA-mh99-v99m-4gvg
+  js-yaml: ^4.3.0 # GHSA-52cp-r559-cp3m, GHSA-h67p-54hq-rp68
+  "picomatch@2": ^2.3.2 # GHSA-c2c7-rcm5-vvqj
+  "picomatch@4": ^4.0.4 # GHSA-c2c7-rcm5-vvqj
+  postcss: ^8.5.10 # GHSA-qx2v-qp2m-jg93
+  sharp: ^0.35.0 # GHSA-f88m-g3jw-g9cj
+  smol-toml: ^1.6.1 # GHSA-v3rj-xjv7-4jmq
