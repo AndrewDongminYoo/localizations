@@ -8,6 +8,6 @@ overrides:
   js-yaml: ^4.3.0 # GHSA-52cp-r559-cp3m, GHSA-h67p-54hq-rp68
   "picomatch@2": ^2.3.2 # GHSA-c2c7-rcm5-vvqj
   "picomatch@4": ^4.0.4 # GHSA-c2c7-rcm5-vvqj
-  postcss: ^8.5.10 # GHSA-qx2v-qp2m-jg93
+  nanoid@3: ^3.3.18 # GHSA-2v37-7h3g-55p8
   sharp: ^0.35.0 # GHSA-f88m-g3jw-g9cj
   smol-toml: ^1.6.1 # GHSA-v3rj-xjv7-4jmq
