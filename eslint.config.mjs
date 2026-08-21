@@ -1,7 +1,5 @@
 import js from "@eslint/js";
 import nextPlugin from "@next/eslint-plugin-next";
-import nextVitals from "eslint-config-next/core-web-vitals";
-import nextTs from "eslint-config-next/typescript";
 import prettier from "eslint-config-prettier";
 import pluginJest from "eslint-plugin-jest";
 import perfectionist from "eslint-plugin-perfectionist";
@@ -13,15 +11,13 @@ import tseslint from "typescript-eslint";
 /**
  * Flat ESLint config for a Next.js 16 + TypeScript + Tailwind stack.
  * - Uses type-aware rules (`project` set to tsconfig.json).
- * - Enforces Next.js Core Web Vitals rules.
+ * - Enforces Next.js Core Web Vitals rules through the official plugin.
  * - Adds React Hooks safety and import/JSX sorting.
  */
 const eslintConfig = [
   {
     ignores: [".next/"],
   },
-  ...nextTs,
-  ...nextVitals,
   js.configs.recommended,
   ...tseslint.configs.recommended,
   prettier,
@@ -81,6 +77,7 @@ const eslintConfig = [
   {
     files: ["**/*.{js,mjs,cjs,jsx,ts,tsx}"],
     plugins: {
+      "@next/next": nextPlugin,
       "react-hooks": reactHooks,
       "simple-import-sort": importSort,
     },
@@ -127,11 +124,11 @@ const eslintConfig = [
     },
   },
   {
-    // Keep LAST so it wins the settings merge over eslint-config-next.
+    // Keep LAST so it wins the settings merge over other React configurations.
     settings: {
       react: {
-        // Pin the React version so eslint-plugin-react (pulled via eslint-config-next)
-        // skips auto-detection. Its detectReactVersion() calls context.getFilename(),
+        // Pin the React version so eslint-plugin-react skips auto-detection.
+        // Its detectReactVersion() calls context.getFilename(),
         // removed in ESLint 10, which crashes rules like react/display-name.
         version: "19.2",
       },
