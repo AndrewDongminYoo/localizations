@@ -123,3 +123,9 @@ Shadcn/ui theme tokens (colors, radius, etc.) are defined as CSS custom properti
 - Components: PascalCase exports in kebab-case files
 - Commits: Conventional Commits + gitmoji (e.g. `feat: ✨ ...`, `chore: 🔨 ...`)
 - New domain terms should be added to `.cspell/custom-dictionary.txt`
+
+## License
+
+Copyright (c) 2026 Dongmin Yu. All rights reserved.
+The source is public for reference only and is not open source.
+Using, copying, modifying, or redistributing it requires written permission from the copyright holder; see [`LICENSE`](LICENSE).
