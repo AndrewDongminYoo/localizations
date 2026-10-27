@@ -1,7 +1,8 @@
 "use client";
 
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 
+import { Github, Linkedin } from "@/components/brand-icons";
 import { useI18n } from "@/lib/i18n/context";
 
 export function Footer() {
