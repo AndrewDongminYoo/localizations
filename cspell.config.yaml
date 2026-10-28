@@ -16,7 +16,17 @@ dictionaryDefinitions:
     addWords: true
 dictionaries:
   - custom-dictionary
+  - node
+  - npm
+  - typescript
+  - softwareTerms
+  - filetypes
+  - fonts
+  - python
 words:
   - localizations
+ignoreRegExpList:
+  # Advisory identifiers are structured metadata, not prose.
+  - "/GHSA-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}/gi"
 ignoreWords: []
 import: []
