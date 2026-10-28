@@ -27,7 +27,7 @@ A technical portfolio landing page for a Korean app localization specialist with
 | --------------- | ----------------------------------------------- |
 | Framework       | Next.js 16 (App Router)                         |
 | UI              | React 19                                        |
-| Language        | TypeScript 5 (strict)                           |
+| Language        | TypeScript 6 (strict)                           |
 | Styling         | Tailwind CSS v4                                 |
 | Components      | shadcn/ui (neutral base, CSS variables)         |
 | Icons           | lucide-react                                    |
@@ -37,8 +37,10 @@ A technical portfolio landing page for a Korean app localization specialist with
 
 ## Getting Started
 
+Use Node.js 24 and the pnpm version pinned in `package.json`.
+
 ```bash
-pnpm install
+corepack pnpm install --frozen-lockfile
 pnpm dev        # http://localhost:3000
 ```
 
@@ -46,6 +48,7 @@ pnpm dev        # http://localhost:3000
 pnpm build      # production build
 pnpm start      # serve production build
 pnpm lint       # ESLint
+pnpm type-check # TypeScript
 ```
 
 Run tests for `lib/` utilities:
@@ -58,8 +61,9 @@ node --test --experimental-strip-types lib/**/*.test.ts
 
 ```plaintext
 app/
-  layout.tsx          # root layout — ThemeProvider → I18nProvider
-  page.tsx            # single page, composes all section components
+  [locale]/
+    layout.tsx        # localized root layout — ThemeProvider → I18nProvider
+    page.tsx          # single page, composes all section components
   globals.css         # Tailwind base + CSS custom properties
 
 components/
@@ -88,7 +92,8 @@ lib/
 
 ## i18n System
 
-All copy lives in `lib/i18n/en.ts` and `lib/i18n/ko.ts`. The active locale is persisted in `localStorage` and synchronized across tabs via a `StorageEvent` listener.
+Section copy lives in `lib/i18n/en.ts` and `lib/i18n/ko.ts`. Routes are generated for `/en` and `/ko`, and `/` redirects to `/en`.
+The route locale supplies the initial server snapshot; a persisted `localStorage` locale takes precedence in the browser and synchronizes across tabs through a storage event listener.
 
 ```tsx
 // In any client component:
@@ -109,10 +114,12 @@ t.pricing.tiers[0]; // Starter tier object
 1. Create `lib/i18n/<locale>.ts` satisfying the `Dictionary` type.
 2. Add it to the `dictionaries` record in `lib/i18n/context.tsx`.
 3. Extend the `Locale` union and `resolveLocale` guard in `lib/i18n/locale-store.ts`.
+4. Add static route parameters and locale metadata in `app/[locale]/layout.tsx`.
 
 ## Customization
 
-All user-facing text is in the dictionary files — editing `en.ts` / `ko.ts` is the only change needed to update any copy on the page.
+Edit `en.ts` / `ko.ts` for section copy.
+Localized metadata and structured data are defined separately in `app/[locale]/layout.tsx`.
 
 Shadcn/ui theme tokens (colors, radius, etc.) are defined as CSS custom properties in `app/globals.css`. Run `pnpm dlx shadcn add <component>` to add new primitives.
 
@@ -123,6 +130,12 @@ Shadcn/ui theme tokens (colors, radius, etc.) are defined as CSS custom properti
 - Components: PascalCase exports in kebab-case files
 - Commits: Conventional Commits + gitmoji (e.g. `feat: ✨ ...`, `chore: 🔨 ...`)
 - New domain terms should be added to `.cspell/custom-dictionary.txt`
+
+## Quality Gate
+
+Run `python3 .trunk/configs/tests/test_trufflehog_to_sarif.py` for the offline secret scanner adapter and `trunk check --all --no-fix` for the full maintenance scan.
+The adapter preserves decoded findings without copying detected values into messages.
+Use explicit paths for formatting, for example `trunk fmt README.md`.
 
 ## License
 

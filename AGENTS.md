@@ -2,17 +2,20 @@
 
 ## Project Structure & Module Organization
 
-This repository is a Next.js 16 + React 19 + TypeScript app. Route entrypoints live in `app/`, shared UI sections live in `components/`, and lower-level primitives are in `components/ui/`. Keep reusable hooks in `hooks/` and shared logic in `lib/`; the locale dictionaries and store are in `lib/i18n/`. Static assets belong in `public/`. Root configs such as `eslint.config.mjs`, `.prettierrc.mjs`, `next.config.ts`, `cspell.config.yaml`, and `knip.json` define repository-wide tooling.
+This repository is a Next.js 16 + React 19 + TypeScript app.
+Use Node.js 24 and the pnpm version pinned in `package.json`. Localized route entrypoints live in `app/[locale]/`, shared UI sections live in `components/`, and lower-level primitives are in `components/ui/`. Keep reusable hooks in `hooks/` and shared logic in `lib/`; the locale dictionaries and store are in `lib/i18n/`. Static assets belong in `public/`. Root configs such as `eslint.config.mjs`, `.prettierrc.mjs`, `next.config.ts`, `cspell.config.yaml`, and `knip.json` define repository-wide tooling.
 
 ## Build, Test, and Development Commands
 
-- `npm run dev`: start the local Next.js dev server.
-- `npm run build`: create the production build.
-- `npm run start`: serve the built app locally.
-- `npm run lint`: run ESLint across the repo.
+- `pnpm dev`: start the local Next.js dev server.
+- `pnpm build`: create the production build.
+- `pnpm start`: serve the built app locally.
+- `pnpm lint`: run ESLint across the repo.
+- `pnpm type-check`: run TypeScript without emitting files.
 - `node --test --experimental-strip-types lib/**/*.test.ts`: run the current `node:test` TypeScript tests.
 
-Run lint before opening a PR. For focused checks, pass a path: `npm run lint -- lib/i18n/context.tsx`.
+Run lint, type-check, tests, and the production build before opening a PR.
+For focused checks, invoke ESLint directly: `pnpm exec eslint lib/i18n/context.tsx`.
 
 ## Coding Style & Naming Conventions
 
@@ -37,3 +40,10 @@ PRs should include a concise summary, linked issue or task when available, and s
 ## Configuration & Content Hygiene
 
 Do not commit secrets; use local environment files that remain ignored. When adding new product names or domain-specific terms, update `.cspell/custom-dictionary.txt` if spellcheck flags them.
+
+## Quality Gate
+
+Run `python3 .trunk/configs/tests/test_trufflehog_to_sarif.py` to test the offline secret scanner adapter.
+Trunk uses `--no-verification --no-update`; decoded findings without literal locations remain file-level findings.
+Use `trunk check --all --no-fix` for the approved full maintenance scan.
+Apply formatting only to explicit task-owned paths, for example `trunk fmt README.md`.
