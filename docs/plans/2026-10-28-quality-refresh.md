@@ -34,3 +34,13 @@ The personal Oracle returned global Trunk precedents from `wiki/concepts/trunk-q
 They confirm no-fix diagnosis, explicitly authorized `--all`, exact Pinact references, and hook-failure diagnosis without bypasses.
 The source freshness is unverified and the returned result window was partial; no project-specific test precedent was returned.
 Use the current manifest and CI as the minimum-gate authority.
+
+## Hosted Review Repair
+
+Reproduce the repeated-secret source-line and out-of-order metadata failures through the reader CLI before changing the location selection.
+Use a reported filesystem line only after confirming that it contains the literal finding.
+Keep existing fallback, malformed-input and secret-free-message behavior.
+The native scanner's controlled JSONL confirms the optional integer `Filesystem.line` field.
+Update both new-locale checklists for alternates and structured-data language lists.
+Use direct `corepack pnpm` commands in the fresh setup guide, without requiring a global shim mutation.
+An isolated PATH with Node and Corepack but no pnpm shim must reject bare pnpm and pass pinned-version and actual type-check commands through Corepack.

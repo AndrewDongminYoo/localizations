@@ -5,6 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 Package manager: **pnpm**, pinned in `package.json`; CI uses Node.js 24.
+Use `corepack pnpm` for these commands when the standalone pnpm shim is unavailable.
 
 ```bash
 pnpm dev          # start Next.js dev server
@@ -54,7 +55,7 @@ The store, context, and dictionaries form a layered design:
 
 3. **`lib/i18n/en.ts` / `lib/i18n/ko.ts`** — Flat nested dictionaries. `Dictionary` type is inferred from `en.ts` (`export type Dictionary = typeof en`) and `ko.ts` is annotated with it. Dictionary keys are section-namespaced (e.g. `t.hero.badge`, `t.pricing.tiers`).
 
-To add a new locale, add a dictionary file that satisfies `Dictionary`, register it in the `dictionaries` map in `context.tsx`, extend the `Locale` union and `resolveLocale` guard in `locale-store.ts`, and update `generateStaticParams` and locale metadata in `app/[locale]/layout.tsx`.
+To add a new locale, add a dictionary file that satisfies `Dictionary`, register it in the `dictionaries` map in `context.tsx`, extend the `Locale` union and `resolveLocale` guard in `locale-store.ts`, and update `generateStaticParams`, localized metadata, `generateMetadata().alternates.languages`, and `JSON_LD.availableLanguage` in `app/[locale]/layout.tsx`.
 
 ### Provider tree
 

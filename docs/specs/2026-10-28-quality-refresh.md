@@ -23,3 +23,6 @@ Do not change application source, styles, assets, translations, public APIs, or 
 Do not invoke a live provider, deployment, or publication during local verification.
 Keep TypeScript inside the installed parser peer range and pnpm within the existing CI major.
 Offline secret scanning must retain decoded, unreadable, binary, and empty-raw findings; malformed input must fail without a partial clean result.
+
+Literal locations prefer a positive integer filesystem line only when the literal starts on that line.
+Invalid, missing, or wrong hints retain the established literal search and file-level fallbacks.

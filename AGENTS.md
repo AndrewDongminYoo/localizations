@@ -3,7 +3,8 @@
 ## Project Structure & Module Organization
 
 This repository is a Next.js 16 + React 19 + TypeScript app.
-Use Node.js 24 and the pnpm version pinned in `package.json`. Localized route entrypoints live in `app/[locale]/`, shared UI sections live in `components/`, and lower-level primitives are in `components/ui/`. Keep reusable hooks in `hooks/` and shared logic in `lib/`; the locale dictionaries and store are in `lib/i18n/`. Static assets belong in `public/`. Root configs such as `eslint.config.mjs`, `.prettierrc.mjs`, `next.config.ts`, `cspell.config.yaml`, and `knip.json` define repository-wide tooling.
+Use Node.js 24 and the pnpm version pinned in `package.json`.
+Use `corepack pnpm` when the standalone pnpm shim is unavailable. Localized route entrypoints live in `app/[locale]/`, shared UI sections live in `components/`, and lower-level primitives are in `components/ui/`. Keep reusable hooks in `hooks/` and shared logic in `lib/`; the locale dictionaries and store are in `lib/i18n/`. Static assets belong in `public/`. Root configs such as `eslint.config.mjs`, `.prettierrc.mjs`, `next.config.ts`, `cspell.config.yaml`, and `knip.json` define repository-wide tooling.
 
 ## Build, Test, and Development Commands
 

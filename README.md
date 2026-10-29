@@ -41,14 +41,14 @@ Use Node.js 24 and the pnpm version pinned in `package.json`.
 
 ```bash
 corepack pnpm install --frozen-lockfile
-pnpm dev        # http://localhost:3000
+corepack pnpm dev # http://localhost:3000
 ```
 
 ```bash
-pnpm build      # production build
-pnpm start      # serve production build
-pnpm lint       # ESLint
-pnpm type-check # TypeScript
+corepack pnpm build # production build
+corepack pnpm start # serve production build
+corepack pnpm lint # ESLint
+corepack pnpm type-check # TypeScript
 ```
 
 Run tests for `lib/` utilities:
@@ -114,14 +114,14 @@ t.pricing.tiers[0]; // Starter tier object
 1. Create `lib/i18n/<locale>.ts` satisfying the `Dictionary` type.
 2. Add it to the `dictionaries` record in `lib/i18n/context.tsx`.
 3. Extend the `Locale` union and `resolveLocale` guard in `lib/i18n/locale-store.ts`.
-4. Add static route parameters and locale metadata in `app/[locale]/layout.tsx`.
+4. Update `generateStaticParams`, localized metadata, `generateMetadata().alternates.languages`, and `JSON_LD.availableLanguage` in `app/[locale]/layout.tsx`.
 
 ## Customization
 
 Edit `en.ts` / `ko.ts` for section copy.
 Localized metadata and structured data are defined separately in `app/[locale]/layout.tsx`.
 
-Shadcn/ui theme tokens (colors, radius, etc.) are defined as CSS custom properties in `app/globals.css`. Run `pnpm dlx shadcn add <component>` to add new primitives.
+Shadcn/ui theme tokens (colors, radius, etc.) are defined as CSS custom properties in `app/globals.css`. Run `corepack pnpm dlx shadcn add <component>` to add new primitives.
 
 ## Code Conventions
 
