@@ -9,6 +9,7 @@ Crect
 creds
 Csvg
 docstrings
+Dongmin
 donminzzi
 elif
 Embla
@@ -29,11 +30,13 @@ nums
 oklch
 omnisharp
 phpactor
+Pinact
 pipefail
 Pretendard
 rego
 rehype
 rgba
+SARIF
 SCRIPTDIR
 shellcheck
 shopt
