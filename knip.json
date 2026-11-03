@@ -5,6 +5,6 @@
     "type": true
   },
   "tags": ["-lintignore"],
-  "project": ["**/*.{js,ts,tsx}", "!.trunk"],
+  "project": ["**/*.{js,ts,tsx,css}", "!.trunk"],
   "ignore": []
 }
