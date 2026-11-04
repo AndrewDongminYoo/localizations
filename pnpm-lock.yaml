@@ -47,8 +47,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       lucide-react:
-        specifier: ^1.63.0
-        version: 1.63.0(@types/react@19.3.0)(react@19.3.1)
+        specifier: ^1.64.0
+        version: 1.64.0(@types/react@19.3.0)(react@19.3.1)
       next:
         specifier: 16.4.3
         version: 16.4.3(@babel/core@7.29.7(supports-color@7.2.0))(@types/node@26.6.6)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -105,8 +105,8 @@ importers:
         specifier: ^17.13.0
         version: 17.13.0
       knip:
-        specifier: ^6.43.0
-        version: 6.43.0
+        specifier: ^6.44.1
+        version: 6.44.1
       postcss:
         specifier: ^8.5.32
         version: 8.5.32
@@ -1601,8 +1601,8 @@ packages:
   keyv@5.6.0:
     resolution: {integrity: sha512-CYDD3SOtsHtyXeEORYRx2qBtpDJFjRTGXUtmNEMGyzYOKj1TE3tycdlho7kA1Ufx9OYWZzg52QFBGALTirzDSw==}
 
-  knip@6.43.0:
-    resolution: {integrity: sha512-8l3cCOg/EXoILO0qcSoMra49yQM91+lEIR4fu5Ko8rrArGX8xKdKZiGI9psPiY6rhLmfLERcMfFEByF0wli5CA==}
+  knip@6.44.1:
+    resolution: {integrity: sha512-Hbd8nvkIsNgFfXgC7Jsb5LHv7jj6VwA3tmfHd53XPX2z9Vc9RnAZqV0BIiP4OrtYqKwCoLseFHQZerb1bNlbSw==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
 
@@ -1691,8 +1691,8 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
-  lucide-react@1.63.0:
-    resolution: {integrity: sha512-GkBfQG+FUJ41x6y3/lNXiOziVU0Rcqqq0TCzhHS8avsFXHZmOdmfBqsVTvHSaVmbI+wbdGkxHRmhYWhD3N4/yA==}
+  lucide-react@1.64.0:
+    resolution: {integrity: sha512-v626F/bcLNvFom6vzztHILtG9tUgXXbgA5AGkd82YkV401+Ko/NHyrWafbPwGofa+6p/EgDJcvEkIwsMH9098w==}
     peerDependencies:
       '@types/react': '*'
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -3319,7 +3319,7 @@ snapshots:
     dependencies:
       '@keyv/serialize': 1.1.1
 
-  knip@6.43.0:
+  knip@6.44.1:
     dependencies:
       formatly: 0.11.4
       get-tsconfig: 4.14.3
@@ -3396,7 +3396,7 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-react@1.63.0(@types/react@19.3.0)(react@19.3.1):
+  lucide-react@1.64.0(@types/react@19.3.0)(react@19.3.1):
     dependencies:
       react: 19.3.1
     optionalDependencies:
