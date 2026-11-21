@@ -76,6 +76,11 @@ export async function generateMetadata({
       url: `/${locale}`,
     },
     title: META[locale].title,
+    verification: {
+      other: {
+        "naver-site-verification": "34741e61005bc5bddfbbb6196d6f5ac67b1e3704",
+      },
+    },
   };
 }
 
